@@ -4,16 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - UYEH TECH</title>
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
-
-       <style>
-         /* ========== UYEH TECH - LOGIN PAGE COMPLETE STYLES ========== */
-
-/* ========== RESET ========== */
+    <style>
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +24,6 @@ body {
     overflow-x: hidden;
 }
 
-/* ========== PARTICLES BACKGROUND ========== */
 .particles {
     position: fixed;
     top: 0;
@@ -71,7 +62,6 @@ body {
     }
 }
 
-/* ========== CONTAINER ========== */
 .signup-container {
     position: relative;
     z-index: 1;
@@ -91,7 +81,6 @@ body {
     }
 }
 
-/* ========== LOGO SECTION ========== */
 .auth-logo {
     text-align: center;
     margin-bottom: 40px;
@@ -113,7 +102,6 @@ body {
     font-weight: 400;
 }
 
-/* ========== LOGIN/SIGNUP BOX ========== */
 .signup-box {
     background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
     border: 1px solid rgba(0, 255, 136, 0.3);
@@ -141,7 +129,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* ========== FORM ELEMENTS ========== */
 .form-group {
     margin-bottom: 22px;
     position: relative;
@@ -183,7 +170,6 @@ body {
     cursor: not-allowed;
 }
 
-/* ========== PASSWORD WRAPPER ========== */
 .password-wrapper {
     position: relative;
 }
@@ -206,7 +192,6 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-/* ========== FORGOT PASSWORD LINK ========== */
 .forgot-password-link {
     text-align: right;
     margin-bottom: 20px;
@@ -225,7 +210,6 @@ body {
     text-decoration: underline;
 }
 
-/* ========== BUTTONS ========== */
 .signup-btn {
     width: 100%;
     padding: 18px;
@@ -257,7 +241,6 @@ body {
     transform: none;
 }
 
-/* ========== DIVIDER ========== */
 .divider {
     display: flex;
     align-items: center;
@@ -280,7 +263,6 @@ body {
     padding: 0 10px;
 }
 
-/* ========== SOCIAL LOGIN ========== */
 .social-signup {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -320,7 +302,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* ========== MESSAGES ========== */
 .success-message {
     background: rgba(0, 255, 136, 0.2);
     border: 1px solid rgba(0, 255, 136, 0.4);
@@ -366,7 +347,6 @@ body {
     }
 }
 
-/* ========== LINKS ========== */
 .login-link {
     text-align: center;
     color: #9ca3af;
@@ -386,7 +366,6 @@ body {
     text-decoration: underline;
 }
 
-/* ========== BACK TO STORE ========== */
 .back-to-store {
     text-align: center;
     margin-top: 30px;
@@ -408,7 +387,6 @@ body {
     transform: translateX(-3px);
 }
 
-/* ========== LOADING STATE ========== */
 .btn-loading {
     position: relative;
     color: transparent !important;
@@ -435,7 +413,31 @@ body {
     }
 }
 
-/* ========== RESPONSIVE ========== */
+.debug-info {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.debug-info h4 {
+    color: #00ff88;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.debug-info pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    color: #00ff88;
+    font-size: 0.8rem;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 15px;
@@ -504,47 +506,6 @@ body {
     }
 }
 
-@media (max-width: 400px) {
-    .signup-box {
-        padding: 35px 20px;
-    }
-
-    .auth-logo-text {
-        font-size: 2.2rem;
-    }
-
-    .signup-title {
-        font-size: 1.6rem;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-    .social-icon {
-        font-size: 1.1rem;
-    }
-}
-
-/* ========== FOCUS STYLES ========== */
-*:focus {
-    outline: 2px solid rgba(0, 255, 136, 0.5);
-    outline-offset: 2px;
-}
-
-button:focus,
-input:focus,
-a:focus {
-    outline: 2px solid rgba(0, 255, 136, 0.5);
-    outline-offset: 2px;
-}
-
-/* ========== SMOOTH SCROLLING ========== */
-html {
-    scroll-behavior: smooth;
-}
-
-/* ========== SELECTION STYLES ========== */
 ::selection {
     background: rgba(0, 255, 136, 0.3);
     color: #fff;
@@ -554,58 +515,9 @@ html {
     background: rgba(0, 255, 136, 0.3);
     color: #fff;
 }
-
-/* ========== HOVER EFFECTS FOR LINKS ========== */
-a {
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-/* ========== ADDITIONAL POLISH ========== */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #fff;
-    -webkit-box-shadow: 0 0 0px 1000px rgba(0, 255, 136, 0.05) inset;
-    transition: background-color 5000s ease-in-out 0s;
-    border: 1px solid rgba(0, 255, 136, 0.3);
-}
-
-/* ========== ENHANCED ANIMATIONS ========== */
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-.loading-pulse {
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-/* ========== CUSTOM SCROLLBAR (if content overflows) ========== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(0, 255, 136, 0.05);
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 136, 0.3);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 136, 0.5);
-}
-       </style>
+    </style>
 </head>
 <body>
-    <!-- Particles Background -->
     <div class="particles">
         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
         <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
@@ -618,34 +530,28 @@ input:-webkit-autofill:focus {
         <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
     </div>
 
-    <!-- Login Container -->
     <div class="signup-container">
-        <!-- Logo -->
         <div class="auth-logo">
             <div class="auth-logo-text">UYEH TECH</div>
             <div class="auth-logo-tagline">Digital Products Store</div>
         </div>
 
-        <!-- Login Box -->
         <div class="signup-box">
             <div class="signup-header">
                 <h1 class="signup-title">Welcome Back</h1>
                 <p class="signup-subtitle">Login to your account</p>
             </div>
 
-            <!-- Error Message -->
             <div class="error-message" id="errorMessage">
                 <span>⚠️</span>
                 <span id="errorText">Error message</span>
             </div>
 
-            <!-- Success Message -->
             <div class="success-message" id="successMessage">
                 <span>✅</span>
-                <span>Login successful! Redirecting...</span>
+                <span>Login successful!</span>
             </div>
 
-            <!-- Login Form -->
             <form id="loginForm">
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
@@ -678,9 +584,8 @@ input:-webkit-autofill:focus {
                     </div>
                 </div>
 
-                <!-- Forgot Password Link -->
-                <div style="text-align: right; margin-bottom: 20px;">
-                    <a href="forgot-password.html" style="color: #00ff88; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: all 0.3s;">
+                <div class="forgot-password-link">
+                    <a href="#" onclick="showNotification('Password reset coming soon!'); return false;">
                         Forgot Password?
                     </a>
                 </div>
@@ -690,12 +595,10 @@ input:-webkit-autofill:focus {
                 </button>
             </form>
 
-            <!-- Divider -->
             <div class="divider">
                 <span>OR</span>
             </div>
 
-            <!-- Social Login -->
             <div class="social-signup">
                 <button class="social-btn" onclick="socialLogin('google')">
                     <span class="social-icon">🔵</span>
@@ -707,29 +610,36 @@ input:-webkit-autofill:focus {
                 </button>
             </div>
 
-            <!-- Signup Link -->
             <div class="login-link">
-                Don't have an account? <a href="signup.html">Sign Up</a>
+                Don't have an account? <a href="#" onclick="showNotification('Sign up page coming soon!'); return false;">Sign Up</a>
+            </div>
+
+            <div class="debug-info" id="debugInfo" style="display: none;">
+                <h4>Debug Information</h4>
+                <pre id="debugOutput"></pre>
             </div>
         </div>
 
-        <!-- Back to Store -->
         <div class="back-to-store">
-            <a href="store.html" class="back-link">
+            <a href="#" class="back-link" onclick="showNotification('Store page coming soon!'); return false;">
                 ← Back to Store
             </a><br>
-            <a href="index.html" class="back-link">
+            <a href="#" class="back-link" onclick="showNotification('Home page coming soon!'); return false;">
                 ← Back to Uyeh Tech Home
             </a>
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
-      // ========== UYEH TECH - LOGIN PAGE JAVASCRIPT ==========
-
 // Configuration
-const API_URL = 'https://uyehtechbackend.onrender.com'; // Change to your deployed backend URL
+const API_URL = 'https://uyehtechbackend.onrender.com';
+
+// In-memory session storage (since localStorage is not supported)
+const session = {
+    token: null,
+    user: null,
+    isLoggedIn: false
+};
 
 // DOM Elements
 const loginForm = document.getElementById('loginForm');
@@ -740,14 +650,17 @@ const loginBtn = document.getElementById('loginBtn');
 const errorMessage = document.getElementById('errorMessage');
 const errorText = document.getElementById('errorText');
 const successMessage = document.getElementById('successMessage');
+const debugInfo = document.getElementById('debugInfo');
+const debugOutput = document.getElementById('debugOutput');
 
-// Toggle Password Visibility
-togglePassword.addEventListener('click', () => {
+// Toggle Password Visibility - FIXED
+passwordToggle.addEventListener('click', () => {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
+    passwordToggle.textContent = type === 'password' ? '👁️' : '🙈';
 });
 
-// ========== HANDLE LOGIN FORM SUBMISSION ==========
+// Handle Login Form Submission
 loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -770,66 +683,98 @@ loginForm.addEventListener('submit', async function(e) {
     // Show loading state
     loginBtn.disabled = true;
     loginBtn.classList.add('btn-loading');
+    errorMessage.classList.remove('show');
+    
+    // Show debug info
+    debugInfo.style.display = 'block';
+    updateDebug('Attempting login...', { email, timestamp: new Date().toISOString() });
     
     try {
+        updateDebug('Sending request to backend...', { url: `${API_URL}/api/auth/login` });
+        
         const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                email,
-                password
-            })
+            body: JSON.stringify({ email, password })
+        });
+        
+        updateDebug('Response received', { 
+            status: response.status, 
+            statusText: response.statusText,
+            ok: response.ok 
         });
         
         const data = await response.json();
+        updateDebug('Response data', data);
         
-        if (data.success) {
-            // Save authentication token and user data
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
+        if (response.ok && data.success) {
+            // Save to in-memory session
+            session.token = data.token;
+            session.user = data.user;
+            session.isLoggedIn = true;
             
             // Show success message
             successMessage.classList.add('show');
+            updateDebug('Login successful!', { user: data.user });
             
-            // Redirect to dashboard/profile after 1.5 seconds
+            // Display user info
+            showNotification(`Welcome back, ${data.user.name || data.user.email}! 🎉\n\nYou are now logged in.\n\n(Session stored in memory)`);
+            
+            // Simulate redirect (in a real app, this would navigate to dashboard)
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 1500);
+                showNotification('In a real app, you would be redirected to the dashboard now.');
+            }, 2000);
+            
         } else {
             throw new Error(data.message || 'Login failed');
         }
         
     } catch (error) {
         console.error('Login Error:', error);
-        showError(error.message || 'Login failed. Please check your credentials.');
+        
+        let errorMsg = 'Login failed. ';
+        
+        if (error.message.includes('Failed to fetch')) {
+            errorMsg += 'Cannot connect to server. Your backend may be down or CORS is not configured.';
+            updateDebug('Connection Error', { 
+                error: 'Failed to fetch',
+                possibleCauses: [
+                    'Backend server is not running',
+                    'CORS not configured on backend',
+                    'Network error'
+                ]
+            });
+        } else {
+            errorMsg += error.message;
+            updateDebug('Error', { message: error.message, stack: error.stack });
+        }
+        
+        showError(errorMsg);
+    } finally {
         loginBtn.disabled = false;
         loginBtn.classList.remove('btn-loading');
     }
 });
 
-// ========== SOCIAL LOGIN FUNCTION ==========
+// Social Login Function
 function socialLogin(provider) {
     showNotification(`🔄 ${provider.charAt(0).toUpperCase() + provider.slice(1)} login coming soon!`);
-    
-    // TODO: Implement actual social login
-    // For now, show a notification
-    console.log(`Social login with ${provider} clicked`);
+    updateDebug('Social login clicked', { provider });
 }
 
-// ========== SHOW ERROR MESSAGE ==========
+// Show Error Message
 function showError(message) {
     errorText.textContent = message;
     errorMessage.classList.add('show');
     
-    // Hide after 5 seconds
     setTimeout(() => {
         errorMessage.classList.remove('show');
-    }, 5000);
+    }, 7000);
 }
 
-// ========== SHOW NOTIFICATION ==========
+// Show Notification
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.style.cssText = `
@@ -852,7 +797,6 @@ function showNotification(message) {
     
     document.body.appendChild(notification);
     
-    // Remove after 5 seconds with animation
     setTimeout(() => {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(400px)';
@@ -861,18 +805,20 @@ function showNotification(message) {
     }, 5000);
 }
 
-// ========== CHECK IF USER IS ALREADY LOGGED IN ==========
-window.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('token');
-    const user = localStorage.getItem('user');
-    
-    if (token && user) {
-        // User is already logged in, redirect to dashboard
-        window.location.href = 'dashboard.html';
-    }
+// Update Debug Output
+function updateDebug(label, data) {
+    const timestamp = new Date().toLocaleTimeString();
+    const debugLine = `[${timestamp}] ${label}:\n${JSON.stringify(data, null, 2)}\n\n`;
+    debugOutput.textContent += debugLine;
+    debugOutput.scrollTop = debugOutput.scrollHeight;
+}
+
+// Auto-focus email input on page load
+window.addEventListener('load', () => {
+    emailInput.focus();
 });
 
-// ========== HANDLE ENTER KEY ON INPUT FIELDS ==========
+// Handle Enter key on input fields
 emailInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault();
@@ -887,21 +833,10 @@ passwordInput.addEventListener('keypress', function(e) {
     }
 });
 
-// ========== AUTO-FOCUS EMAIL INPUT ON PAGE LOAD ==========
-window.addEventListener('load', () => {
-    emailInput.focus();
-});
-
-// ========== HANDLE BROWSER BACK BUTTON ==========
-window.addEventListener('pageshow', function(event) {
-    // If page is loaded from cache (back button), check login status
-    if (event.persisted) {
-        const token = localStorage.getItem('token');
-        if (token) {
-            window.location.href = 'dashboard.html';
-        }
-    }
-});
+// Display session info if already logged in
+if (session.isLoggedIn) {
+    showNotification(`Already logged in as ${session.user.email}`);
+}
     </script>
 </body>
-</html>
+    </html>
