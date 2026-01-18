@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - UYEH TECH</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+   <style>
+    /* ========== PRODUCT DETAIL PAGE CSS ========== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* ========== NAVIGATION ========== */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #00ff88;
+    text-decoration: none;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.back-btn {
+    padding: 10px 20px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 8px;
+    color: #00ff88;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: translateX(-5px);
+}
+
+/* ========== MAIN CONTENT ========== */
+.container {
+    max-width: 1400px;
+    margin: 100px auto 60px;
+    padding: 0 40px;
+}
+
+.breadcrumb {
+    color: #9ca3af;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: #00ff88;
+    text-decoration: none;
+}
+
+/* ========== PRODUCT LAYOUT ========== */
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+}
+
+/* ========== LEFT SIDE - PREVIEW ========== */
+.product-preview {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.preview-main {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #00ff88;
+    color: #0a0a0a;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.preview-badge.hot {
+    background: #ff6b00;
+    color: white;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff4444;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.preview-btn {
+    flex: 1;
+    padding: 15px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 12px;
+    color: #00ff88;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.preview-btn:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: translateY(-2px);
+}
+
+/* ========== RIGHT SIDE - INFO ========== */
+.product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-category {
+    color: #00ff88;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+}
+
+.rating-text {
+    color: #9ca3af;
+}
+
+.downloads {
+    color: #00ff88;
+    font-weight: 600;
+}
+
+.product-description {
+    color: #d1d5db;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* ========== PRICE & BUY ========== */
+.price-section {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.original-price {
+    color: #666;
+    text-decoration: line-through;
+    font-size: 1.5rem;
+}
+
+.current-price {
+    color: #00ff88;
+    font-size: 3.5rem;
+    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+}
+
+.savings {
+    background: #00ff88;
+    color: #0a0a0a;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(135deg, #00b359, #00ff88);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 15px;
+}
+
+.buy-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+}
+
+.guarantee {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.guarantee-icon {
+    color: #00ff88;
+}
+
+/* ========== FEATURES ========== */
+.features-section {
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #00ff88;
+    margin-bottom: 20px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 10px;
+}
+
+.feature-icon {
+    color: #00ff88;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+.feature-text {
+    color: #d1d5db;
+}
+
+/* ========== INCLUDES ========== */
+.includes-list {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.includes-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    color: #d1d5db;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.includes-list li:last-child {
+    border-bottom: none;
+}
+
+.check-icon {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* ========== SPECS ========== */
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.spec-item {
+    padding: 20px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 12px;
+}
+
+.spec-label {
+    color: #9ca3af;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+}
+
+.spec-value {
+    color: #00ff88;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ========== REVIEWS ========== */
+.reviews-section {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 2px solid rgba(0, 255, 136, 0.2);
+}
+
+.review-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: #fff;
+}
+
+.review-date {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.review-text {
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+    border-top: 2px solid rgba(0, 255, 136, 0.3);
+    padding: 40px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    color: #d1d5db;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 968px) {
+    .product-detail {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .product-preview {
+        position: relative;
+        top: 0;
+    }
+
+    .preview-main {
+        height: 350px;
+        font-size: 5rem;
+    }
+
+    .product-title {
+        font-size: 2rem;
+    }
+
+    .current-price {
+        font-size: 2.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .specs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        padding: 15px 20px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+}
+   </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="store.html" class="logo"><img src="uyehtech logo.png" width="50px" height="50px" alt="UYEH TECH"></a>
+        <a href="store.html" class="back-btn">← Back to Store</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="store.html">Store</a> / <span id="breadcrumbCategory">...</span> / <span id="breadcrumbTitle">...</span>
+        </div>
+
+        <!-- Product Detail Grid -->
+        <div class="product-detail">
+            <!-- LEFT: Product Preview -->
+            <div class="product-preview">
+                <div class="preview-main" id="previewMain">
+                    <span class="preview-badge" id="previewBadge">NEW</span>
+                    <span class="discount-badge" id="discountBadge">-50%</span>
+                    <div id="productIcon">🚀</div>
+                </div>
+                
+                <div class="preview-actions">
+                    <button class="preview-btn" onclick="alert('Live demo coming soon!')">
+                        👁️ Live Demo
+                    </button>
+                    <button class="preview-btn" onclick="alert('Preview images coming soon!')">
+                        🖼️ Screenshots
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: Product Info -->
+            <div class="product-info">
+                <div class="product-category" id="productCategory">TEMPLATE</div>
+                
+                <h1 class="product-title" id="productTitle">Loading...</h1>
+                
+                <div class="product-rating">
+                    <span class="stars" id="productStars">⭐⭐⭐⭐⭐</span>
+                    <span class="rating-text"><span id="productRating">4.9</span> (<span id="productReviews">127</span> reviews)</span>
+                    <span class="downloads">📥 <span id="productDownloads">850</span> downloads</span>
+                </div>
+                
+                <p class="product-description" id="productDescription">
+                    Loading product description...
+                </p>
+
+                <!-- Price & Purchase -->
+                <div class="price-section">
+                    <div class="price-container">
+                        <span class="original-price" id="originalPrice">$99</span>
+                        <span class="current-price" id="currentPrice">$49</span>
+                        <span class="savings" id="savings">SAVE 50%</span>
+                    </div>
+                    
+                    <button class="buy-btn" onclick="buyNow()">
+                        🛒 Buy Now - Instant Access
+                    </button>
+                    
+                    <p class="guarantee">
+                        <span class="guarantee-icon">🔒</span> Secure checkout • 
+                        <span class="guarantee-icon">↩️</span> 30-day money-back guarantee
+                    </p>
+                </div>
+
+                <!-- Features -->
+                <div class="features-section">
+                    <h2 class="section-title">✨ Key Features</h2>
+                    <div class="features-grid" id="featuresGrid">
+                        <!-- Features loaded by JS -->
+                    </div>
+                </div>
+
+                <!-- What's Included -->
+                <div class="includes-section">
+                    <h2 class="section-title">📦 What's Included</h2>
+                    <ul class="includes-list" id="includesList">
+                        <!-- Includes loaded by JS -->
+                    </ul>
+                </div>
+
+                <!-- Specifications -->
+                <div class="specs-section">
+                    <h2 class="section-title">📋 Specifications</h2>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <div class="spec-label">File Size</div>
+                            <div class="spec-value" id="fileSize">12 MB</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Last Updated</div>
+                            <div class="spec-value" id="lastUpdated">Jan 2025</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">License</div>
+                            <div class="spec-value">Commercial Use</div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-label">Support</div>
+                            <div class="spec-value">6 Months</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2 class="section-title">⭐ Customer Reviews</h2>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">John Smith</div>
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-date">2 days ago</div>
+                </div>
+                <p class="review-text">
+                    "Absolutely fantastic! This saved me weeks of development time. 
+                    The code is clean, well-documented, and easy to customize. 
+                    Highly recommend for anyone looking for quality templates."
+                </p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">Sarah Johnson</div>
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-date">1 week ago</div>
+                </div>
+                <p class="review-text">
+                    "Best purchase I've made! The quality is outstanding and the support 
+                    team was very helpful when I had questions. Worth every penny!"
+                </p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div>
+                        <div class="reviewer-name">Mike Chen</div>
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                <p class="review-text">
+                    "Professional quality at an affordable price. I've used this on 
+                    multiple client projects and they're always impressed. Great job!"
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="color: #00ff88; font-family: 'Playfair Display', serif;">UYEH TECH</h3>
+            <p>© 2025 UYEH TECH. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ========== PRODUCT DETAIL PAGE JAVASCRIPT ==========
+
+// Complete Products Database
+const products = [
+    {
+        id: 1,
+        title: 'Modern Landing Page Pack',
+        category: 'templates',
+        description: 'Collection of 10 stunning, conversion-optimized landing pages perfect for startups, SaaS products, and digital agencies. Each template is fully responsive, SEO-friendly, and easy to customize. Built with clean HTML, CSS, and JavaScript - no frameworks required. Perfect for developers and business owners who want professional results fast.',
+        price: 49,
+        originalPrice: 99,
+        icon: '🚀',
+        badge: 'BESTSELLER',
+        rating: 4.9,
+        reviews: 127,
+        downloads: 850,
+        features: [
+            'Fully responsive design',
+            'SEO optimized structure',
+            'Cross-browser compatible',
+            'Easy to customize',
+            'Clean, documented code',
+            'Free lifetime updates'
+        ],
+        includes: [
+            '10 complete landing page templates',
+            'HTML, CSS & JavaScript files',
+            'Image assets & icons',
+            'Font files included',
+            'Documentation guide',
+            '6 months email support'
+        ],
+        fileSize: '12 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 2,
+        title: 'Portfolio Template Pro',
+        category: 'templates',
+        description: 'Showcase your work with this elegant, feature-rich portfolio template designed for creative professionals. Includes dark/light mode, smooth animations, project galleries with filters, and an integrated contact form. Perfect for designers, developers, photographers, and freelancers.',
+        price: 79,
+        originalPrice: 149,
+        icon: '💼',
+        badge: 'NEW',
+        rating: 4.8,
+        reviews: 93,
+        downloads: 520,
+        features: [
+            'Dark/Light mode toggle',
+            'Smooth scroll animations',
+            'Project gallery with filters',
+            'Contact form integration',
+            'Blog section included',
+            'Mobile-first design'
+        ],
+        includes: [
+            'Complete HTML template',
+            'PSD & Figma source files',
+            'Video setup tutorial',
+            'Stock photos included',
+            '6 months support',
+            'Free updates'
+        ],
+        fileSize: '18 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 3,
+        title: 'Navigation Bar Collection',
+        category: 'components',
+        description: '25+ premium navigation bars with smooth animations and modern effects. Perfect for adding professional navigation to any website. Includes mobile hamburger menus, dropdown mega menus, search bar integration, and multiple color schemes. All navbars are fully responsive and easy to integrate.',
+        price: 29,
+        originalPrice: 59,
+        icon: '🧭',
+        badge: null,
+        rating: 4.7,
+        reviews: 201,
+        downloads: 1240,
+        features: [
+            '25+ navbar variations',
+            'Mobile hamburger menus',
+            'Dropdown mega menus',
+            'Search bar integration',
+            'Sticky/Fixed options',
+            'Multiple color schemes'
+        ],
+        includes: [
+            'HTML/CSS source code',
+            'JavaScript animations',
+            'Usage examples',
+            'Customization guide',
+            'Icon pack included',
+            '3 months support'
+        ],
+        fileSize: '5 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 4,
+        title: 'Complete UI Kit',
+        category: 'components',
+        description: '200+ professionally designed components for modern web applications. Includes buttons, forms, cards, modals, alerts, and more. Built with a consistent design system, dark mode support, and accessibility in mind. Available in React and Vue versions with Figma design files included.',
+        price: 99,
+        originalPrice: 199,
+        icon: '🎨',
+        badge: 'HOT',
+        rating: 5.0,
+        reviews: 156,
+        downloads: 670,
+        features: [
+            '200+ UI components',
+            'Consistent design system',
+            'Dark mode support',
+            'Accessible (WCAG compliant)',
+            'React & Vue versions',
+            'Figma design files'
+        ],
+        includes: [
+            'All component files',
+            'Design tokens & variables',
+            'Icon library (500+ icons)',
+            'Complete documentation site',
+            'Lifetime updates',
+            '12 months priority support'
+        ],
+        fileSize: '45 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 5,
+        title: 'Web Development Course',
+        category: 'courses',
+        description: 'Complete guide from beginner to professional web developer. Learn HTML, CSS, JavaScript, responsive design, and modern web development practices. Includes 40+ hours of video content, 50+ coding exercises, and 10 real-world projects. Perfect for students and career changers.',
+        price: 149,
+        originalPrice: 299,
+        icon: '📚',
+        badge: 'BESTSELLER',
+        rating: 4.9,
+        reviews: 432,
+        downloads: 1850,
+        features: [
+            '40+ hours video content',
+            '50+ coding exercises',
+            '10 real-world projects',
+            'Certificate of completion',
+            'Private community access',
+            'Lifetime access & updates'
+        ],
+        includes: [
+            'HD video lessons',
+            'Complete source code files',
+            'Project templates',
+            'Cheat sheets & guides',
+            'Quiz assessments',
+            'Career guidance resources'
+        ],
+        fileSize: '15 GB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 6,
+        title: 'JavaScript Advanced',
+        category: 'courses',
+        description: 'Master modern JavaScript, ES6+ features, and popular frameworks. Deep dive into async programming, API development, testing, and debugging. Includes React and Node.js modules. Perfect for developers who want to level up their JavaScript skills.',
+        price: 99,
+        originalPrice: 199,
+        icon: '⚡',
+        badge: null,
+        rating: 4.8,
+        reviews: 289,
+        downloads: 920,
+        features: [
+            '30+ hours of content',
+            'ES6+ features deep dive',
+            'React & Node.js modules',
+            'Async programming mastery',
+            'API development',
+            'Testing & debugging'
+        ],
+        includes: [
+            'Video tutorials',
+            'Code examples & templates',
+            'Practice projects',
+            'Final exam & certificate',
+            'Slack community access',
+            '6 months support'
+        ],
+        fileSize: '8 GB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 7,
+        title: 'Icon Pack Premium',
+        category: 'assets',
+        description: '500+ vector icons for web and mobile applications. Available in multiple formats (SVG, PNG, Icon Font) and 5 different styles. Fully customizable colors and sizes. Perfect for designers and developers who need professional icons quickly.',
+        price: 19,
+        originalPrice: 39,
+        icon: '✨',
+        badge: null,
+        rating: 4.6,
+        reviews: 345,
+        downloads: 2100,
+        features: [
+            '500+ unique icons',
+            'Multiple formats (SVG, PNG)',
+            '5 different styles',
+            'Customizable colors',
+            'Regular updates',
+            'Commercial license included'
+        ],
+        includes: [
+            'SVG source files',
+            'PNG files (multiple sizes)',
+            'Icon font files',
+            'CSS sprite sheets',
+            'Figma library file',
+            'Usage documentation'
+        ],
+        fileSize: '25 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 8,
+        title: 'Animation Library',
+        category: 'assets',
+        description: 'Pre-built CSS animations for modern, engaging websites. Includes 100+ animations that are performance-optimized and easy to integrate. No JavaScript required - just copy and paste. Perfect for adding life to your web projects.',
+        price: 39,
+        originalPrice: 79,
+        icon: '🎬',
+        badge: 'NEW',
+        rating: 4.7,
+        reviews: 178,
+        downloads: 640,
+        features: [
+            '100+ CSS animations',
+            'Easy copy-paste integration',
+            'Customizable timing',
+            'Performance optimized',
+            'No JavaScript required',
+            'Cross-browser support'
+        ],
+        includes: [
+            'CSS animation files',
+            'HTML usage examples',
+            'Complete documentation',
+            'Usage guide & tips',
+            'Video tutorials',
+            '3 months support'
+        ],
+        fileSize: '3 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 9,
+        title: 'E-commerce Template',
+        category: 'templates',
+        description: 'Complete online store template with shopping cart and checkout flow. Includes product pages, filters, wishlist feature, and admin dashboard. Built with modern design principles and optimized for conversions. Perfect for launching your online business.',
+        price: 129,
+        originalPrice: 249,
+        icon: '🛍️',
+        badge: 'HOT',
+        rating: 4.9,
+        reviews: 167,
+        downloads: 480,
+        features: [
+            'Complete shop pages',
+            'Shopping cart system',
+            'Checkout flow',
+            'Product filters & search',
+            'Wishlist feature',
+            'Admin dashboard included'
+        ],
+        includes: [
+            'Full source code',
+            'Database schema',
+            'Payment integration guide',
+            'Setup documentation',
+            'Email templates',
+            '12 months priority support'
+        ],
+        fileSize: '35 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 10,
+        title: 'Dashboard Admin Template',
+        category: 'templates',
+        description: 'Professional admin dashboard with charts, analytics, and data visualization. Perfect for SaaS applications, internal tools, and business management systems. Includes multiple layout options and pre-built pages.',
+        price: 89,
+        originalPrice: 179,
+        icon: '📊',
+        badge: null,
+        rating: 4.8,
+        reviews: 213,
+        downloads: 750,
+        features: [
+            'Multiple dashboard layouts',
+            'Chart.js integration',
+            'Data tables with sorting',
+            'User management pages',
+            'Dark/Light themes',
+            'Fully responsive design'
+        ],
+        includes: [
+            'HTML template files',
+            'CSS/JS libraries',
+            'Chart components',
+            'Sample data included',
+            'Documentation',
+            '6 months support'
+        ],
+        fileSize: '22 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 11,
+        title: 'React Component Library',
+        category: 'components',
+        description: '150+ production-ready React components built with modern best practices. Includes hooks, TypeScript support, and comprehensive documentation. Perfect for building React applications quickly.',
+        price: 119,
+        originalPrice: 239,
+        icon: '⚛️',
+        badge: 'NEW',
+        rating: 4.9,
+        reviews: 187,
+        downloads: 420,
+        features: [
+            '150+ React components',
+            'TypeScript support',
+            'Hooks-based architecture',
+            'Storybook documentation',
+            'Fully customizable',
+            'Tree-shakeable'
+        ],
+        includes: [
+            'NPM package',
+            'Source code',
+            'Storybook stories',
+            'Usage examples',
+            'API documentation',
+            '12 months updates'
+        ],
+        fileSize: '28 MB',
+        lastUpdated: 'January 2025'
+    },
+    {
+        id: 12,
+        title: 'CSS Mastery Course',
+        category: 'courses',
+        description: 'Master CSS from basics to advanced techniques. Learn Flexbox, Grid, animations, responsive design, and modern CSS features. Includes practical projects and real-world examples.',
+        price: 79,
+        originalPrice: 159,
+        icon: '🎨',
+        badge: null,
+        rating: 4.7,
+        reviews: 256,
+        downloads: 680,
+        features: [
+            '25+ hours content',
+            'Flexbox & Grid mastery',
+            'CSS animations',
+            'Responsive design',
+            '15 practice projects',
+            'Certificate included'
+        ],
+        includes: [
+            'Video lessons',
+            'Code examples',
+            'Practice exercises',
+            'Project files',
+            'Cheat sheets',
+            'Lifetime access'
+        ],
+        fileSize: '6 GB',
+        lastUpdated: 'January 2025'
+    }
+];
+
+// Get product ID from URL
+function getProductId() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return parseInt(urlParams.get('id')) || 1;
+}
+
+// Load product details
+function loadProduct() {
+    const productId = getProductId();
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+        alert('Product not found!');
+        window.location.href = 'store.html';
+        return;
+    }
+
+    // Update page title
+    document.title = `${product.title} - UYEH TECH`;
+
+    // Update breadcrumb
+    document.getElementById('breadcrumbCategory').textContent = product.category;
+    document.getElementById('breadcrumbTitle').textContent = product.title;
+
+    // Update preview
+    document.getElementById('productIcon').textContent = product.icon;
+    if (product.badge) {
+        document.getElementById('previewBadge').textContent = product.badge;
+        document.getElementById('previewBadge').className = 'preview-badge ' + (product.badge === 'HOT' ? 'hot' : '');
+    } else {
+        document.getElementById('previewBadge').style.display = 'none';
+    }
+
+    // Update discount badge
+    if (product.originalPrice) {
+        const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        document.getElementById('discountBadge').textContent = `-${discount}%`;
+    } else {
+        document.getElementById('discountBadge').style.display = 'none';
+    }
+
+    // Update info
+    document.getElementById('productCategory').textContent = product.category.toUpperCase();
+    document.getElementById('productTitle').textContent = product.title;
+    document.getElementById('productDescription').textContent = product.description;
+
+    // Update rating
+    document.getElementById('productStars').textContent = '⭐'.repeat(Math.floor(product.rating));
+    document.getElementById('productRating').textContent = product.rating;
+    document.getElementById('productReviews').textContent = product.reviews;
+    document.getElementById('productDownloads').textContent = product.downloads;
+
+    // Update price
+    if (product.originalPrice) {
+        document.getElementById('originalPrice').textContent = `$${product.originalPrice}`;
+        const savings = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        document.getElementById('savings').textContent = `SAVE ${savings}%`;
+    } else {
+        document.getElementById('originalPrice').style.display = 'none';
+        document.getElementById('savings').style.display = 'none';
+    }
+    document.getElementById('currentPrice').textContent = `$${product.price}`;
+
+    // Update features
+    const featuresGrid = document.getElementById('featuresGrid');
+    featuresGrid.innerHTML = product.features.map(feature => `
+        <div class="feature-item">
+            <span class="feature-icon">✓</span>
+            <span class="feature-text">${feature}</span>
+        </div>
+    `).join('');
+
+    // Update includes
+    const includesList = document.getElementById('includesList');
+    includesList.innerHTML = product.includes.map(item => `
+        <li><span class="check-icon">✓</span> ${item}</li>
+    `).join('');
+
+    // Update specs
+    document.getElementById('fileSize').textContent = product.fileSize;
+    document.getElementById('lastUpdated').textContent = product.lastUpdated;
+
+    console.log('✅ Product loaded:', product.title);
+}
+
+// Buy Now function
+function buyNow() {
+    const productId = getProductId();
+    const product = products.find(p => p.id === productId);
+    
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (!token || !user) {
+        alert('Please login to purchase this product');
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Add to cart
+    let cart = [];
+    const stored = localStorage.getItem('uyehtech_cart');
+    if (stored) {
+        cart = JSON.parse(stored);
+    }
+    
+    // Check if already in cart
+    if (cart.find(item => item.id === productId)) {
+        alert('This product is already in your cart!');
+        window.location.href = 'store.html';
+        return;
+    }
+    
+    // Add to cart
+    cart.push({
+        id: product.id,
+        title: product.title,
+        category: product.category,
+        price: product.price,
+        icon: product.icon
+    });
+    
+    localStorage.setItem('uyehtech_cart', JSON.stringify(cart));
+    
+    alert(`✅ Added "${product.title}" to cart! Redirecting to checkout...`);
+    window.location.href = 'checkout.html';
+}
+
+// Load product on page load
+window.addEventListener('DOMContentLoaded', loadProduct);
+    </script>
+</body>
+</html>

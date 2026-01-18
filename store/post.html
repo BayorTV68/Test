@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - UYEH TECH</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00b359;
+            --dark: #0a0a0a;
+            --dark-light: #1a1a1a;
+            --gray: #9ca3af;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #fff;
+            line-height: 1.8;
+            padding-top: 80px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .post-header {
+            margin-bottom: 40px;
+        }
+
+        .post-category {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 8px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 20px;
+        }
+
+        .post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00ff88, #00cc66);
+            color: black;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--gray);
+            font-size: 0.95rem;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #e5e7eb;
+        }
+
+        .post-content p {
+            margin-bottom: 20px;
+        }
+
+        .post-content h2 {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            color: var(--primary);
+        }
+
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            color: #fff;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(0, 255, 136, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 2rem;
+            }
+            
+            .post-image {
+                height: 250px;
+            }
+            
+            .post-content {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="blogs.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Blog
+        </a>
+
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+            <p>Loading post...</p>
+        </div>
+
+        <div id="errorMessage" class="error" style="display: none;">
+            <div class="error-icon">😔</div>
+            <h2>Post Not Found</h2>
+            <p>Sorry, we couldn't find this post.</p>
+            <a href="blogs.html" class="back-button" style="margin-top: 20px;">Return to Blog</a>
+        </div>
+
+        <article id="postContent" style="display: none;">
+            <div class="post-header">
+                <span id="postCategory" class="post-category"></span>
+                <h1 id="postTitle" class="post-title"></h1>
+                <div class="post-meta">
+                    <span id="postDate"></span>
+                    <span><i class="fas fa-eye"></i> <span id="postViews"></span> views</span>
+                    <span><i class="fas fa-heart"></i> <span id="postLikes"></span> likes</span>
+                </div>
+            </div>
+
+            <img id="postImage" class="post-image" style="display: none;">
+
+            <div id="postBody" class="post-content"></div>
+        </article>
+    </div>
+
+    <script>
+        const API_URL = 'https://uyehtechbackend.onrender.com';
+
+        // Get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Load post
+        async function loadPost() {
+            const slug = getUrlParameter('slug');
+            const postId = getUrlParameter('id');
+
+            console.log('Loading post with:', { slug, postId });
+
+            if (!slug && !postId) {
+                showError('No post identifier provided');
+                return;
+            }
+
+            try {
+                let url;
+                if (slug) {
+                    url = `${API_URL}/api/blog/posts/${slug}`;
+                } else {
+                    url = `${API_URL}/api/blog/posts/id/${postId}`;
+                }
+
+                console.log('Fetching from:', url);
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Post data:', data);
+
+                if (data.success && data.post) {
+                    displayPost(data.post);
+                } else {
+                    throw new Error('Post not found in response');
+                }
+            } catch (error) {
+                console.error('Error loading post:', error);
+                showError('Failed to load post');
+            }
+        }
+
+        // Display post
+        function displayPost(post) {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('postContent').style.display = 'block';
+
+            // Set title
+            document.title = `${post.title} - UYEH TECH`;
+            document.getElementById('postTitle').textContent = post.title;
+
+            // Set category
+            document.getElementById('postCategory').textContent = post.category || 'Uncategorized';
+
+            // Set date
+            const date = new Date(post.publishedAt || post.createdAt);
+            document.getElementById('postDate').textContent = date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Set stats
+            document.getElementById('postViews').textContent = post.views || 0;
+
+            // Set image
+            if (post.featuredImage) {
+                const img = document.getElementById('postImage');
+                img.src = post.featuredImage;
+                img.alt = post.title;
+                img.style.display = 'block';
+            }
+
+            // Set content
+            document.getElementById('postBody').innerHTML = post.content;
+
+            // Increment view count
+            incrementViewCount(post.slug || post._id);
+        }
+
+        // Show error
+        function showError(message) {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'block';
+            console.error(message);
+        }
+
+        // Increment view count
+        async function incrementViewCount(identifier) {
+            try {
+                await fetch(`${API_URL}/api/blog/posts/${identifier}/view`, {
+                    method: 'POST'
+                });
+            } catch (error) {
+                console.error('Failed to increment view count:', error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadPost);
+    </script>
+</body>
+</html>
