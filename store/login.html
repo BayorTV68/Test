@@ -720,12 +720,12 @@ loginForm.addEventListener('submit', async function(e) {
             updateDebug('Login successful!', { user: data.user });
             
             // Display user info
-            showNotification(`Welcome back, ${data.user.name || data.user.email}! 🎉\n\nYou are now logged in.\n\n(Session stored in memory)`);
+            showNotification(`Welcome back, ${data.user.name || data.user.email}! 🎉\n\nRedirecting to dashboard...`);
             
-            // Simulate redirect (in a real app, this would navigate to dashboard)
+            // Redirect to dashboard after 1.5 seconds
             setTimeout(() => {
-                showNotification('In a real app, you would be redirected to the dashboard now.');
-            }, 2000);
+                window.location.href = 'dashboard.html';
+            }, 1500);
             
         } else {
             throw new Error(data.message || 'Login failed');
