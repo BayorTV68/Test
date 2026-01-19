@@ -1,0 +1,3593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard v7.0 - UYEH TECH (Rating System + Downloads)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to external CSS files -->
+    <style>
+      /* ========== ADMIN DASHBOARD v7.0 - CSS PART 1 ========== */
+/* Base Styles, Sidebar, Topbar, Layout, Stats */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00ff88;
+    --primary-dark: #00b359;
+    --dark: #0a0a0a;
+    --dark-light: #1a1a1a;
+    --gray: #9ca3af;
+    --gray-light: #d1d5db;
+    --success: #00ff88;
+    --error: #ff4444;
+    --warning: #ffa500;
+    --info: #0096ff;
+    --rating-gold: #ffc107;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--dark);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.95));
+    border-right: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 30px 0;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s;
+}
+
+.sidebar-header {
+    padding: 0 30px 30px;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.admin-info {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.admin-details h4 {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+.admin-details p {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.nav-menu {
+    padding: 20px 0;
+}
+
+.nav-item {
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.nav-item:hover {
+    background: rgba(0, 255, 136, 0.05);
+    color: var(--primary);
+    border-left-color: var(--primary);
+}
+
+.nav-item.active {
+    background: rgba(0, 255, 136, 0.1);
+    color: var(--primary);
+    border-left-color: var(--primary);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    width: 25px;
+}
+
+.nav-item .badge {
+    position: absolute;
+    right: 30px;
+    background: var(--error);
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    margin-left: 280px;
+    min-height: 100vh;
+}
+
+/* ========== TOPBAR ========== */
+.topbar {
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.95));
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.search-bar {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.search-bar i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.topbar-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.topbar-btn:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary);
+}
+
+.topbar-btn .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--error);
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+/* ========== CONTENT AREA ========== */
+.content-area {
+    padding: 40px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    color: var(--gray);
+    font-size: 1rem;
+}
+
+/* ========== STATS CARDS ========== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.95));
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.stat-change {
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+.stat-change.positive {
+    color: var(--success);
+}
+
+.stat-change.negative {
+    color: var(--error);
+}
+
+/* ========== TABLES ========== */
+.table-container {
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(10, 10, 10, 0.95));
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.table-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.table-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: #fff;
+}
+
+.btn-secondary {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: var(--primary);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #cc0000, var(--error));
+    color: #fff;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-completed { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+.status-pending { background: rgba(255, 165, 0, 0.2); color: var(--warning); }
+.status-failed { background: rgba(255, 68, 68, 0.2); color: var(--error); }
+.status-active { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+.status-inactive { background: rgba(255, 68, 68, 0.2); color: var(--error); }
+.status-published { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+.status-draft { background: rgba(255, 165, 0, 0.2); color: var(--warning); }
+.status-archived { background: rgba(156, 163, 175, 0.2); color: var(--gray); }
+
+.action-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #fff;
+}
+
+.action-btn:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary);
+}
+
+.action-btn.danger:hover {
+    background: rgba(255, 68, 68, 0.1);
+    border-color: var(--error);
+}
+
+/* ========== RATING STARS ========== */
+.rating-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.rating-stars i {
+    color: var(--rating-gold);
+    font-size: 0.9rem;
+}
+
+.rating-stars i.far {
+    color: var(--gray);
+}
+
+.rating-value {
+    margin-left: 8px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.review-count {
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-left: 5px;
+}
+
+/* ========== DOWNLOAD INDICATORS ========== */
+.download-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 15px;
+    font-size: 0.75rem;
+    color: var(--primary);
+}
+
+.download-indicator i {
+    font-size: 0.9rem;
+}
+
+.no-download {
+    color: var(--error);
+    background: rgba(255, 68, 68, 0.1);
+    border-color: rgba(255, 68, 68, 0.3);
+}
+
+/* ========== DOWNLOAD STATS CARD ========== */
+.download-stats-card {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 180, 100, 0.05));
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.download-stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.download-stats-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.download-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.download-stat-item {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.download-stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.download-stat-label {
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+/* ========== RATING STATS CARD ========== */
+.rating-stats-card {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 152, 0, 0.05));
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.rating-stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rating-stats-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ffa000, var(--rating-gold));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+/* ========== HIDE CLASS ========== */
+.hidden {
+    display: none !important;
+}
+/* ========== ADMIN DASHBOARD v7.0 - CSS PART 2 ========== */
+/* Modals, Forms, Loading, Notifications, Reviews, Responsive */
+
+/* ========== MODAL ========== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.98), rgba(10, 10, 10, 0.98));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.close-modal {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #fff;
+}
+
+.close-modal:hover {
+    background: rgba(255, 68, 68, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(0, 255, 136, 0.1);
+}
+
+/* ========== DOWNLOAD LINK SECTION ========== */
+.download-link-section {
+    background: rgba(0, 255, 136, 0.05);
+    border: 2px solid rgba(0, 255, 136, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    position: relative;
+}
+
+.download-link-section::before {
+    content: "🔒 Payment Protected";
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.download-link-section .form-label {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.download-link-section .form-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(0, 255, 136, 0.4);
+}
+
+.download-link-section .form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+}
+
+/* ========== LOADING ========== */
+.loading {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 255, 136, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========== NOTIFICATIONS ========== */
+.notification {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    padding: 18px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+    min-width: 300px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(400px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.notification.success { background: linear-gradient(135deg, #00b359, #00ff88); color: #fff; }
+.notification.error { background: linear-gradient(135deg, #ff4444, #ff6666); color: #fff; }
+.notification.info { background: linear-gradient(135deg, #0096ff, #00d4ff); color: #fff; }
+
+/* ========== PAGINATION ========== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 16px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 8px;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: rgba(0, 255, 136, 0.2);
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination .page-info {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* ========== PRODUCT DOWNLOAD INFO ========== */
+.product-download-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 255, 136, 0.05);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.product-download-info i {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.product-download-info.no-link {
+    background: rgba(255, 68, 68, 0.05);
+}
+
+.product-download-info.no-link i {
+    color: var(--error);
+}
+
+/* ========== DOWNLOAD ACTIVITY LOG ========== */
+.download-activity-item {
+    padding: 15px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.download-activity-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.download-activity-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.download-activity-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.download-activity-details h4 {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+.download-activity-details p {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.download-activity-product {
+    text-align: right;
+}
+
+.download-activity-product h5 {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 3px;
+}
+
+.download-activity-product span {
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+/* ========== REVIEW CARD ========== */
+.review-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.review-card:hover {
+    background: rgba(0, 255, 136, 0.08);
+    border-color: var(--primary);
+    transform: translateX(3px);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 15px;
+}
+
+.review-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.review-avatar {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.review-user-info h4 {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.verified-badge {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--success);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.review-rating i {
+    color: var(--rating-gold);
+    font-size: 0.85rem;
+}
+
+.review-content {
+    margin-bottom: 12px;
+}
+
+.review-product {
+    color: var(--primary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.review-comment {
+    color: var(--gray-light);
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.review-meta {
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.review-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.helpful-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+
+.helpful-count i {
+    font-size: 0.9rem;
+}
+
+/* ========== RATING DISTRIBUTION ========== */
+.rating-distribution {
+    margin: 20px 0;
+}
+
+.rating-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.rating-bar-label {
+    min-width: 80px;
+    color: var(--gray);
+    font-size: 0.85rem;
+}
+
+.rating-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.rating-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rating-gold), #ffeb3b);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+.rating-bar-value {
+    min-width: 50px;
+    text-align: right;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ========== ALERT BOX ========== */
+.alert-box {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.alert-box i {
+    font-size: 1.3rem;
+}
+
+.alert-info {
+    background: rgba(0, 150, 255, 0.1);
+    border: 1px solid rgba(0, 150, 255, 0.3);
+    color: var(--info);
+}
+
+.alert-success {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: var(--success);
+}
+
+.alert-warning {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    color: var(--warning);
+}
+
+.alert-error {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: var(--error);
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: var(--gray);
+    margin-bottom: 20px;
+}
+
+/* ========== COPY BUTTON ========== */
+.copy-btn {
+    padding: 6px 12px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 6px;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.copy-btn:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: scale(1.05);
+}
+
+.copy-btn i {
+    font-size: 0.9rem;
+}
+
+/* ========== TOOLTIP ========== */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: var(--primary);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.tooltip:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* ========== FILTER TABS ========== */
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    padding: 8px 16px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 8px;
+    color: var(--gray-light);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.filter-tab:hover {
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.filter-tab.active {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    border-color: var(--primary);
+    color: #fff;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-area {
+        padding: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .topbar {
+        padding: 15px 20px;
+    }
+    
+    .search-bar {
+        max-width: 100%;
+    }
+    
+    .table-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    table {
+        font-size: 0.85rem;
+    }
+    
+    th, td {
+        padding: 10px;
+    }
+    
+    .modal-content {
+        padding: 25px;
+        width: 95%;
+    }
+    
+    .download-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .notification {
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+    }
+    
+    .review-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.6rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .action-btns {
+        flex-wrap: wrap;
+    }
+    
+    .table-actions {
+        width: 100%;
+    }
+    
+    .table-actions .form-input,
+    .table-actions .form-select {
+        width: 100%;
+    }
+    
+    .review-card {
+        padding: 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">UT</div>
+                <div class="logo-text">UYEH TECH</div>
+            </div>
+        </div>
+
+        <div class="admin-info">
+            <div class="admin-avatar">👨‍💼</div>
+            <div class="admin-details">
+                <h4 id="adminName">Admin</h4>
+                <p id="adminEmail">admin@uyehtech.com</p>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <div class="nav-item active" data-page="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" data-page="analytics">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </div>
+            <div class="nav-item" data-page="users">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </div>
+            <div class="nav-item" data-page="orders">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Orders</span>
+            </div>
+            <div class="nav-item" data-page="products">
+                <i class="fas fa-box"></i>
+                <span>Products</span>
+            </div>
+            <div class="nav-item" data-page="downloads">
+                <i class="fas fa-download"></i>
+                <span>Downloads</span>
+            </div>
+            <div class="nav-item" data-page="ratings">
+                <i class="fas fa-star"></i>
+                <span>Ratings & Reviews</span>
+                <span class="badge" id="newRatingsBadge">0</span>
+            </div>
+            <div class="nav-item" data-page="coupons">
+                <i class="fas fa-ticket-alt"></i>
+                <span>Coupons</span>
+            </div>
+            <div class="nav-item" data-page="blog">
+                <i class="fas fa-blog"></i>
+                <span>Blog</span>
+            </div>
+            <div class="nav-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search..." id="globalSearch">
+            </div>
+
+            <div class="topbar-actions">
+                <div class="topbar-btn" onclick="window.location.href='index.html'" title="Go to Home">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="topbar-btn" onclick="showNotifications()" title="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationCount">0</span>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <div id="dashboardPage" class="page-content"></div>
+            <div id="analyticsPage" class="page-content hidden"></div>
+            <div id="usersPage" class="page-content hidden"></div>
+            <div id="ordersPage" class="page-content hidden"></div>
+            <div id="productsPage" class="page-content hidden"></div>
+            <div id="downloadsPage" class="page-content hidden"></div>
+            <div id="ratingsPage" class="page-content hidden"></div>
+            <div id="couponsPage" class="page-content hidden"></div>
+            <div id="blogPage" class="page-content hidden"></div>
+            <div id="settingsPage" class="page-content hidden"></div>
+        </div>
+    </main>
+
+    <!-- CREATE PRODUCT MODAL -->
+    <div id="createProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Product</h2>
+                <button class="close-modal" onclick="closeModal('createProductModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="createProductForm" onsubmit="handleCreateProduct(event)">
+                <div class="form-group">
+                    <label class="form-label">Product Title *</label>
+                    <input type="text" class="form-input" name="title" required placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description *</label>
+                    <textarea class="form-textarea" name="description" required placeholder="Product description" style="min-height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <input type="text" class="form-input" name="category" required placeholder="e.g., Templates, Courses, Software">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price *</label>
+                    <input type="number" class="form-input" name="price" required min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Compare Price</label>
+                    <input type="number" class="form-input" name="comparePrice" min="0" step="0.01" placeholder="Original price">
+                </div>
+                
+                <!-- DOWNLOAD LINK SECTION -->
+                <div class="form-group download-link-section">
+                    <label class="form-label">
+                        <i class="fas fa-download" style="color: var(--primary);"></i> Download Link (Google Drive/Dropbox) *
+                    </label>
+                    <input type="url" class="form-input" name="downloadLink" required placeholder="https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing">
+                    <small style="color: var(--gray); display: block; margin-top: 5px;">
+                        📥 This link will be accessible to customers after payment
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">File Size</label>
+                    <input type="text" class="form-input" name="fileSize" placeholder="e.g., 5.2 MB">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Version</label>
+                    <input type="text" class="form-input" name="version" placeholder="e.g., 1.0">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Product Icon</label>
+                    <input type="text" class="form-input" name="icon" placeholder="Icon emoji or class">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="url" class="form-input" name="image" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Stock</label>
+                    <input type="number" class="form-input" name="stock" min="0" value="999">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="isActive" checked> Active
+                    </label>
+                    <label class="form-label" style="margin-left: 20px;">
+                        <input type="checkbox" name="isFeatured"> Featured
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-plus"></i> Create Product with Download Link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT PRODUCT MODAL -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Product</h2>
+                <button class="close-modal" onclick="closeModal('editProductModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="editProductForm" onsubmit="handleUpdateProduct(event)">
+                <input type="hidden" name="productId" id="editProductId">
+                
+                <div class="form-group">
+                    <label class="form-label">Product Title *</label>
+                    <input type="text" class="form-input" name="title" id="editProductTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description *</label>
+                    <textarea class="form-textarea" name="description" id="editProductDescription" required style="min-height: 100px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <input type="text" class="form-input" name="category" id="editProductCategory" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price *</label>
+                    <input type="number" class="form-input" name="price" id="editProductPrice" required min="0" step="0.01">
+                </div>
+                
+                <!-- DOWNLOAD LINK (EDITABLE) -->
+                <div class="form-group download-link-section">
+                    <label class="form-label">
+                        <i class="fas fa-download" style="color: var(--primary);"></i> Download Link *
+                    </label>
+                    <input type="url" class="form-input" name="downloadLink" id="editProductDownloadLink" required>
+                    <small style="color: var(--gray); display: block; margin-top: 5px;">
+                        📥 Update download link (Google Drive/Dropbox)
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">File Size</label>
+                    <input type="text" class="form-input" name="fileSize" id="editProductFileSize">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Version</label>
+                    <input type="text" class="form-input" name="version" id="editProductVersion">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="isActive" id="editProductIsActive"> Active
+                    </label>
+                    <label class="form-label" style="margin-left: 20px;">
+                        <input type="checkbox" name="isFeatured" id="editProductIsFeatured"> Featured
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-save"></i> Update Product
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CREATE COUPON MODAL -->
+    <div id="createCouponModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Coupon</h2>
+                <button class="close-modal" onclick="closeModal('createCouponModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="createCouponForm" onsubmit="handleCreateCoupon(event)">
+                <div class="form-group">
+                    <label class="form-label">Coupon Code *</label>
+                    <input type="text" class="form-input" name="code" required placeholder="e.g., SAVE20">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Discount Value *</label>
+                    <input type="number" class="form-input" name="discount" required min="0" step="0.01" placeholder="e.g., 20">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Discount Type *</label>
+                    <select class="form-select" name="type" required>
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="fixed">Fixed Amount ($)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Usage Limit</label>
+                    <input type="number" class="form-input" name="usageLimit" min="1" placeholder="Leave empty for unlimited">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Minimum Purchase Amount</label>
+                    <input type="number" class="form-input" name="minPurchaseAmount" min="0" step="0.01" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Expiration Date</label>
+                    <input type="date" class="form-input" name="expiresAt">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" name="description" placeholder="Optional description"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Coupon</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CREATE BLOG POST MODAL -->
+    <div id="createBlogModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Blog Post</h2>
+                <button class="close-modal" onclick="closeModal('createBlogModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="createBlogForm" onsubmit="handleCreateBlogPost(event)">
+                <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" class="form-input" name="title" required placeholder="Enter post title">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Excerpt *</label>
+                    <textarea class="form-textarea" name="excerpt" required placeholder="Short description (max 300 characters)" maxlength="300" style="min-height: 80px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content *</label>
+                    <textarea class="form-textarea" name="content" required placeholder="Full post content" style="min-height: 200px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <select class="form-select" name="category" required>
+                        <option value="">Select category</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Business">Business</option>
+                        <option value="Tutorial">Tutorial</option>
+                        <option value="News">News</option>
+                        <option value="Product">Product</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Development">Development</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags (comma-separated)</label>
+                    <input type="text" class="form-input" name="tags" placeholder="e.g., javascript, tutorial, coding">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Featured Image URL</label>
+                    <input type="url" class="form-input" name="featuredImage" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status *</label>
+                    <select class="form-select" name="status" required>
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Post</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW REVIEW MODAL -->
+    <div id="viewReviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Review Details</h2>
+                <button class="close-modal" onclick="closeModal('viewReviewModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="reviewDetailsContent">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loadingOverlay" class="loading">
+        <div class="spinner"></div>
+        <p style="color: var(--primary); margin-top: 20px;">Loading...</p>
+    </div>
+
+    <!-- Load JavaScript files -->
+    <script>
+      // ========== ADMIN DASHBOARD v7.0 - JAVASCRIPT PART 1 OF 4 ==========
+// Core, Authentication, Navigation, Dashboard, Analytics
+
+const API_URL = 'https://uyehtechbackend.onrender.com';
+const ADMIN_EMAIL = 'uyehtech@gmail.com';
+let currentPage = 'dashboard';
+let adminToken = '';
+let adminUser = {};
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('✅ Admin Dashboard v7.0 Initialized - Rating System + Downloads');
+    
+    adminToken = localStorage.getItem('admin_token');
+    const userStr = localStorage.getItem('admin_user');
+    
+    if (!adminToken) {
+        window.location.href = 'admin-login.html';
+        return;
+    }
+    
+    if (userStr) {
+        adminUser = JSON.parse(userStr);
+        document.getElementById('adminName').textContent = adminUser.name || 'Admin';
+        document.getElementById('adminEmail').textContent = adminUser.email || '';
+    }
+    
+    await verifyAdminToken();
+    initializeNavigation();
+    loadDashboardData();
+});
+
+// ========== AUTHENTICATION ==========
+async function verifyAdminToken() {
+    try {
+        const response = await fetch(`${API_URL}/api/auth/admin/verify`, {
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        if (!data.success || !data.isAdmin) {
+            localStorage.removeItem('admin_token');
+            localStorage.removeItem('admin_user');
+            window.location.href = 'admin-login.html';
+        }
+    } catch (error) {
+        console.error('Token verification failed:', error);
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        window.location.href = 'admin-login.html';
+    }
+}
+
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        window.location.href = 'admin-login.html';
+    }
+}
+
+// ========== NAVIGATION ==========
+function initializeNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const page = item.getAttribute('data-page');
+            navigateTo(page);
+        });
+    });
+}
+
+function navigateTo(page) {
+    currentPage = page;
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-page') === page) {
+            item.classList.add('active');
+        }
+    });
+    
+    document.querySelectorAll('.page-content').forEach(p => {
+        p.classList.add('hidden');
+    });
+    
+    const pageElement = document.getElementById(`${page}Page`);
+    if (pageElement) {
+        pageElement.classList.remove('hidden');
+    }
+    
+    switch(page) {
+        case 'dashboard': loadDashboardData(); break;
+        case 'analytics': loadAnalyticsData(); break;
+        case 'users': loadUsersData(); break;
+        case 'orders': loadOrdersData(); break;
+        case 'products': loadProductsData(); break;
+        case 'downloads': loadDownloadsData(); break;
+        case 'ratings': loadRatingsData(); break;
+        case 'coupons': loadCouponsData(); break;
+        case 'blog': loadBlogData(); break;
+        case 'settings': loadSettingsData(); break;
+    }
+}
+
+// ========== DASHBOARD ==========
+async function loadDashboardData() {
+    const dashboardPage = document.getElementById('dashboardPage');
+    
+    dashboardPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Welcome back! Here's your overview</p>
+        </div>
+        <div class="stats-grid" id="dashboardStats"></div>
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Recent Orders</h3>
+                <button class="btn btn-secondary" onclick="navigateTo('orders')">View All</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="recentOrdersTable">
+                    <tr><td colspan="5" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    try {
+        showLoading();
+        
+        const response = await fetch(`${API_URL}/api/admin/dashboard`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const { overview, recentStats, recentOrdersList } = data.dashboard;
+            
+            document.getElementById('dashboardStats').innerHTML = `
+                <div class="stat-card" onclick="navigateTo('users')">
+                    <div class="stat-header">
+                        <div class="stat-icon">👥</div>
+                    </div>
+                    <div class="stat-value">${overview.totalUsers}</div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-change positive">+${recentStats.newUsers} this week</div>
+                </div>
+
+                <div class="stat-card" onclick="navigateTo('orders')">
+                    <div class="stat-header">
+                        <div class="stat-icon">📦</div>
+                    </div>
+                    <div class="stat-value">${overview.totalOrders}</div>
+                    <div class="stat-label">Total Orders</div>
+                    <div class="stat-change positive">+${recentStats.recentOrders} this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">💰</div>
+                    </div>
+                    <div class="stat-value">$${overview.totalRevenue.toFixed(2)}</div>
+                    <div class="stat-label">Total Revenue</div>
+                    <div class="stat-change positive">+$${recentStats.recentRevenue.toFixed(2)} this week</div>
+                </div>
+
+                <div class="stat-card" onclick="navigateTo('products')">
+                    <div class="stat-header">
+                        <div class="stat-icon">🛍️</div>
+                    </div>
+                    <div class="stat-value">${overview.totalProducts}</div>
+                    <div class="stat-label">Total Products</div>
+                </div>
+
+                <div class="stat-card" onclick="navigateTo('downloads')">
+                    <div class="stat-header">
+                        <div class="stat-icon">📥</div>
+                    </div>
+                    <div class="stat-value">${overview.totalDownloads || 0}</div>
+                    <div class="stat-label">Total Downloads</div>
+                    <div class="stat-change positive">+${recentStats.recentDownloads || 0} this week</div>
+                </div>
+
+                <div class="stat-card" onclick="navigateTo('ratings')">
+                    <div class="stat-header">
+                        <div class="stat-icon">⭐</div>
+                    </div>
+                    <div class="stat-value">${overview.totalRatings || 0}</div>
+                    <div class="stat-label">Total Ratings</div>
+                    <div class="stat-change positive">+${recentStats.recentRatings || 0} this week</div>
+                </div>
+            `;
+            
+            // Update badges
+            document.getElementById('notificationCount').textContent = overview.totalOrders;
+            const newRatingsBadge = document.getElementById('newRatingsBadge');
+            if (newRatingsBadge) {
+                newRatingsBadge.textContent = recentStats.recentRatings || 0;
+            }
+            
+            const tbody = document.getElementById('recentOrdersTable');
+            if (!recentOrdersList || recentOrdersList.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No orders found</td></tr>';
+            } else {
+                tbody.innerHTML = recentOrdersList.map(order => `
+                    <tr onclick="navigateTo('orders')" style="cursor: pointer;">
+                        <td>${order.orderReference}</td>
+                        <td>${order.customerInfo.name}</td>
+                        <td>$${order.total.toFixed(2)}</td>
+                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                        <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Dashboard error:', error);
+        showNotification('Failed to load dashboard data', 'error');
+        hideLoading();
+    }
+}
+
+// ========== ANALYTICS ==========
+async function loadAnalyticsData(period = '7d') {
+    const analyticsPage = document.getElementById('analyticsPage');
+    
+    analyticsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Analytics</h1>
+            <p class="page-subtitle">Track your business performance</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Period</h3>
+                <select class="form-select" style="width: 150px;" onchange="loadAnalyticsData(this.value)">
+                    <option value="7d" ${period === '7d' ? 'selected' : ''}>Last 7 Days</option>
+                    <option value="30d" ${period === '30d' ? 'selected' : ''}>Last 30 Days</option>
+                    <option value="90d" ${period === '90d' ? 'selected' : ''}>Last 90 Days</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon">📈</div></div>
+                <div class="stat-value" id="analyticsRevenue">$0</div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon">🛒</div></div>
+                <div class="stat-value" id="analyticsOrders">0</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon">👤</div></div>
+                <div class="stat-value" id="analyticsNewUsers">0</div>
+                <div class="stat-label">New Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon">⭐</div></div>
+                <div class="stat-value" id="analyticsAvgRating">0.0</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Top Products</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Sales</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody id="topProductsTable">
+                    <tr><td colspan="3" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Daily Performance</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Orders</th>
+                        <th>Revenue</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody id="dailyStatsTable">
+                    <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/analytics?period=${period}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const { dailyStats, userGrowth, productPerformance, ratingTrends } = data.analytics;
+            
+            const totalRevenue = dailyStats.reduce((sum, day) => sum + day.revenue, 0);
+            const totalOrders = dailyStats.reduce((sum, day) => sum + day.orders, 0);
+            const newUsers = userGrowth.reduce((sum, day) => sum + day.count, 0);
+            
+            // Calculate average rating
+            let avgRating = 0;
+            if (ratingTrends && ratingTrends.length > 0) {
+                const totalRating = ratingTrends.reduce((sum, day) => sum + (day.avgRating || 0), 0);
+                avgRating = (totalRating / ratingTrends.length).toFixed(1);
+            }
+            
+            document.getElementById('analyticsRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById('analyticsOrders').textContent = totalOrders;
+            document.getElementById('analyticsNewUsers').textContent = newUsers;
+            document.getElementById('analyticsAvgRating').textContent = avgRating;
+            
+            const topProductsTable = document.getElementById('topProductsTable');
+            if (productPerformance.length > 0) {
+                topProductsTable.innerHTML = productPerformance.map(product => `
+                    <tr>
+                        <td>${product._id}</td>
+                        <td>${product.sales}</td>
+                        <td>$${product.revenue.toFixed(2)}</td>
+                    </tr>
+                `).join('');
+            } else {
+                topProductsTable.innerHTML = '<tr><td colspan="3" style="text-align: center;">No data available</td></tr>';
+            }
+            
+            const dailyStatsTable = document.getElementById('dailyStatsTable');
+            if (dailyStats.length > 0) {
+                dailyStatsTable.innerHTML = dailyStats.reverse().map(day => `
+                    <tr>
+                        <td>${day._id}</td>
+                        <td>${day.orders}</td>
+                        <td>$${day.revenue.toFixed(2)}</td>
+                        <td>${day.completed}</td>
+                    </tr>
+                `).join('');
+            } else {
+                dailyStatsTable.innerHTML = '<tr><td colspan="4" style="text-align: center;">No data available</td></tr>';
+            }
+        }
+    } catch (error) {
+        console.error('Analytics error:', error);
+        showNotification('Failed to load analytics data', 'error');
+    }
+}
+
+// ========== UTILITY FUNCTIONS ==========
+function showLoading() {
+    document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loadingOverlay').style.display = 'none';
+}
+
+function showNotification(message, type = 'info') {
+    const existing = document.querySelectorAll('.notification');
+    existing.forEach(n => n.remove());
+
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
+}
+
+function showNotifications() {
+    showNotification('No new notifications', 'info');
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.add('active');
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+}
+
+function updatePagination(containerId, pagination, callback) {
+    const container = document.getElementById(containerId);
+    if (!container || !pagination) return;
+    
+    const { page, pages, total } = pagination;
+    
+    container.innerHTML = `
+        <button ${page <= 1 ? 'disabled' : ''} onclick="(${callback})(${page - 1})">
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span class="page-info">Page ${page} of ${pages} (${total} total)</span>
+        <button ${page >= pages ? 'disabled' : ''} onclick="(${callback})(${page + 1})">
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    `;
+}
+
+function renderStars(rating) {
+    let stars = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            stars += '<i class="fas fa-star"></i>';
+        } else {
+            stars += '<i class="far fa-star"></i>';
+        }
+    }
+    return stars;
+}
+
+console.log('✅ Admin Dashboard v7.0 Part 1/4 loaded: Core, Auth, Dashboard, Analytics');
+// ========== ADMIN DASHBOARD v7.0 - JAVASCRIPT PART 2 OF 4 ==========
+// Users Management & Orders Management
+
+// ========== USERS MANAGEMENT ==========
+async function loadUsersData(page = 1, search = '', status = 'all') {
+    const usersPage = document.getElementById('usersPage');
+    
+    usersPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">User Management</h1>
+            <p class="page-subtitle">Manage all registered users</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">All Users</h3>
+                <div class="table-actions">
+                    <input type="text" class="form-input" placeholder="Search users..." style="width: 250px;" id="userSearchInput" value="${search}">
+                    <select class="form-select" id="userStatusFilter" style="width: 150px;">
+                        <option value="all" ${status === 'all' ? 'selected' : ''}>All Users</option>
+                        <option value="active" ${status === 'active' ? 'selected' : ''}>Active</option>
+                        <option value="banned" ${status === 'banned' ? 'selected' : ''}>Banned</option>
+                        <option value="admin" ${status === 'admin' ? 'selected' : ''}>Admins</option>
+                    </select>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Orders</th>
+                        <th>Downloads</th>
+                        <th>Ratings</th>
+                        <th>Spent</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTable">
+                    <tr><td colspan="8" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+            <div class="pagination" id="usersPagination"></div>
+        </div>
+    `;
+    
+    document.getElementById('userSearchInput').addEventListener('input', (e) => {
+        loadUsersData(1, e.target.value, document.getElementById('userStatusFilter').value);
+    });
+    
+    document.getElementById('userStatusFilter').addEventListener('change', (e) => {
+        loadUsersData(1, document.getElementById('userSearchInput').value, e.target.value);
+    });
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/users?page=${page}&limit=20&search=${search}&status=${status}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const tbody = document.getElementById('usersTable');
+            
+            if (!data.users || data.users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No users found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.users.map(user => `
+                <tr>
+                    <td>${user.fullName}</td>
+                    <td>${user.email}</td>
+                    <td>${user.orderCount || 0}</td>
+                    <td>${user.downloadCount || 0}</td>
+                    <td>${user.ratingCount || 0}</td>
+                    <td>$${(user.totalSpent || 0).toFixed(2)}</td>
+                    <td>
+                        <span class="status-badge ${user.isBanned ? 'status-inactive' : 'status-active'}">
+                            ${user.isBanned ? 'Banned' : 'Active'}
+                        </span>
+                        ${user.isAdmin ? '<span class="status-badge status-completed">Admin</span>' : ''}
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            ${!user.isAdmin ? `
+                                <button class="action-btn" onclick="toggleBanUser('${user._id}', ${!user.isBanned})" title="${user.isBanned ? 'Unban' : 'Ban'}">
+                                    <i class="fas fa-${user.isBanned ? 'check' : 'ban'}"></i>
+                                </button>
+                                <button class="action-btn danger" onclick="deleteUser('${user._id}')" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            ` : '<span style="color: var(--gray); font-size: 0.85rem;">Admin</span>'}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (data.pagination) {
+                updatePagination('usersPagination', data.pagination, (p) => loadUsersData(p, search, status));
+            }
+        }
+    } catch (error) {
+        console.error('Users error:', error);
+        showNotification('Failed to load users', 'error');
+    }
+}
+
+async function toggleBanUser(userId, shouldBan) {
+    const action = shouldBan ? 'ban' : 'unban';
+    const reason = shouldBan ? prompt('Enter ban reason:') : '';
+    
+    if (shouldBan && !reason) return;
+    if (!confirm(`Are you sure you want to ${action} this user?`)) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/users/${userId}/ban`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isBanned: shouldBan, banReason: reason })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(`User ${action}ned successfully`, 'success');
+            loadUsersData();
+        } else {
+            showNotification(data.message || `Failed to ${action} user`, 'error');
+        }
+    } catch (error) {
+        console.error('Ban user error:', error);
+        showNotification(`Failed to ${action} user`, 'error');
+    }
+}
+
+async function deleteUser(userId) {
+    if (!confirm('Delete this user? This cannot be undone.')) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/users/${userId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('User deleted successfully', 'success');
+            loadUsersData();
+        } else {
+            showNotification(data.message || 'Failed to delete user', 'error');
+        }
+    } catch (error) {
+        console.error('Delete user error:', error);
+        showNotification('Failed to delete user', 'error');
+    }
+}
+
+// ========== ORDERS MANAGEMENT ==========
+async function loadOrdersData(page = 1, search = '', status = 'all') {
+    const ordersPage = document.getElementById('ordersPage');
+    
+    ordersPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Orders Management</h1>
+            <p class="page-subtitle">Track and manage all orders</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">All Orders</h3>
+                <div class="table-actions">
+                    <input type="text" class="form-input" placeholder="Search orders..." style="width: 250px;" id="orderSearchInput" value="${search}">
+                    <select class="form-select" id="orderStatusFilter" style="width: 150px;">
+                        <option value="all" ${status === 'all' ? 'selected' : ''}>All Orders</option>
+                        <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="completed" ${status === 'completed' ? 'selected' : ''}>Completed</option>
+                        <option value="failed" ${status === 'failed' ? 'selected' : ''}>Failed</option>
+                    </select>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersTable">
+                    <tr><td colspan="7" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+            <div class="pagination" id="ordersPagination"></div>
+        </div>
+    `;
+    
+    document.getElementById('orderSearchInput').addEventListener('input', (e) => {
+        loadOrdersData(1, e.target.value, document.getElementById('orderStatusFilter').value);
+    });
+    
+    document.getElementById('orderStatusFilter').addEventListener('change', (e) => {
+        loadOrdersData(1, document.getElementById('orderSearchInput').value, e.target.value);
+    });
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/orders?page=${page}&limit=20&search=${search}&status=${status}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const tbody = document.getElementById('ordersTable');
+            
+            if (!data.orders || data.orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No orders found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.orders.map(order => `
+                <tr>
+                    <td>${order.orderReference}</td>
+                    <td>${order.customerInfo.name}<br><small style="color: var(--gray);">${order.customerInfo.email}</small></td>
+                    <td>${order.items.length}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                    <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn" onclick="viewOrder('${order._id}')" title="View">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn" onclick="updateOrderStatus('${order._id}', '${order.status}')" title="Update">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn danger" onclick="deleteOrder('${order._id}')" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (data.pagination) {
+                updatePagination('ordersPagination', data.pagination, (p) => loadOrdersData(p, search, status));
+            }
+        }
+    } catch (error) {
+        console.error('Orders error:', error);
+        showNotification('Failed to load orders', 'error');
+    }
+}
+
+async function viewOrder(orderId) {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/orders/${orderId}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            const order = data.order;
+            const items = order.items.map(i => `- ${i.title}: $${i.price}`).join('\n');
+            alert(`Order Details:\n\nID: ${order.orderReference}\nCustomer: ${order.customerInfo.name}\nEmail: ${order.customerInfo.email}\n\nItems:\n${items}\n\nSubtotal: $${order.subtotal.toFixed(2)}\nDiscount: $${order.discount.toFixed(2)}\nTotal: $${order.total.toFixed(2)}\n\nStatus: ${order.status}\nPayment: ${order.paymentInfo.status}\nDate: ${new Date(order.createdAt).toLocaleString()}`);
+        }
+    } catch (error) {
+        console.error('View order error:', error);
+        showNotification('Failed to load order', 'error');
+    }
+}
+
+async function updateOrderStatus(orderId, currentStatus) {
+    const newStatus = prompt(`Update status to:\n- pending\n- completed\n- failed\n- refunded\n\nCurrent: ${currentStatus}`);
+    
+    if (!newStatus || !['pending', 'completed', 'failed', 'refunded'].includes(newStatus.toLowerCase())) {
+        if (newStatus) showNotification('Invalid status', 'error');
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/orders/${orderId}/status`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: newStatus.toLowerCase() })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Order status updated', 'success');
+            loadOrdersData();
+        } else {
+            showNotification(data.message || 'Failed to update', 'error');
+        }
+    } catch (error) {
+        console.error('Update order error:', error);
+        showNotification('Failed to update order', 'error');
+    }
+}
+
+async function deleteOrder(orderId) {
+    if (!confirm('Delete this order?')) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/orders/${orderId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Order deleted', 'success');
+            loadOrdersData();
+        } else {
+            showNotification(data.message || 'Failed to delete', 'error');
+        }
+    } catch (error) {
+        console.error('Delete order error:', error);
+        showNotification('Failed to delete order', 'error');
+    }
+}
+
+console.log('✅ Admin Dashboard v7.0 Part 2/4 loaded: Users & Orders Management');
+// ========== ADMIN DASHBOARD v7.0 - JAVASCRIPT PART 3 OF 4 ==========
+// Products Management, Downloads, Ratings & Reviews
+
+// ========== PRODUCTS MANAGEMENT ==========
+async function loadProductsData(page = 1, search = '', status = 'all') {
+    const productsPage = document.getElementById('productsPage');
+    
+    productsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Product Management</h1>
+            <p class="page-subtitle">Manage products with download links & ratings</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">All Products</h3>
+                <div class="table-actions">
+                    <input type="text" class="form-input" placeholder="Search..." style="width: 200px;" id="productSearchInput" value="${search}">
+                    <select class="form-select" id="productStatusFilter" style="width: 130px;">
+                        <option value="all" ${status === 'all' ? 'selected' : ''}>All</option>
+                        <option value="active" ${status === 'active' ? 'selected' : ''}>Active</option>
+                        <option value="inactive" ${status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openModal('createProductModal')">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Rating</th>
+                        <th>Download</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTable">
+                    <tr><td colspan="7" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+            <div class="pagination" id="productsPagination"></div>
+        </div>
+    `;
+    
+    document.getElementById('productSearchInput').addEventListener('input', (e) => {
+        loadProductsData(1, e.target.value, document.getElementById('productStatusFilter').value);
+    });
+    
+    document.getElementById('productStatusFilter').addEventListener('change', (e) => {
+        loadProductsData(1, document.getElementById('productSearchInput').value, e.target.value);
+    });
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/products?page=${page}&limit=20&search=${search}&status=${status}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const tbody = document.getElementById('productsTable');
+            
+            if (!data.products || data.products.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No products found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.products.map(product => `
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem;">${product.icon || '📦'}</span>
+                            <div>
+                                <div>${product.title}</div>
+                                ${product.fileSize ? `<small style="color: var(--gray);">${product.fileSize}</small>` : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td>${product.category}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td>
+                        <div class="rating-stars">
+                            ${renderStars(Math.round(product.rating || 0))}
+                            <span class="rating-value">${(product.rating || 0).toFixed(1)}</span>
+                            <span class="review-count">(${product.reviewCount || 0})</span>
+                        </div>
+                    </td>
+                    <td>
+                        ${product.downloadLink ? 
+                            `<span class="download-indicator"><i class="fas fa-check-circle"></i> Active</span>` : 
+                            `<span class="download-indicator no-download"><i class="fas fa-times-circle"></i> Missing</span>`
+                        }
+                    </td>
+                    <td>
+                        <span class="status-badge ${product.isActive ? 'status-active' : 'status-inactive'}">
+                            ${product.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn" onclick="editProduct('${product._id}')" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn" onclick="toggleProductStatus('${product._id}', ${!product.isActive})" title="${product.isActive ? 'Deactivate' : 'Activate'}">
+                                <i class="fas fa-toggle-${product.isActive ? 'on' : 'off'}"></i>
+                            </button>
+                            <button class="action-btn danger" onclick="deleteProduct('${product._id}')" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            
+            if (data.pagination) {
+                updatePagination('productsPagination', data.pagination, (p) => loadProductsData(p, search, status));
+            }
+        }
+    } catch (error) {
+        console.error('Products error:', error);
+        showNotification('Failed to load products', 'error');
+    }
+}
+
+async function handleCreateProduct(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const productData = {
+        title: formData.get('title'),
+        description: formData.get('description'),
+        category: formData.get('category'),
+        price: parseFloat(formData.get('price')),
+        comparePrice: formData.get('comparePrice') ? parseFloat(formData.get('comparePrice')) : 0,
+        downloadLink: formData.get('downloadLink') || '',
+        fileSize: formData.get('fileSize') || '',
+        version: formData.get('version') || '',
+        icon: formData.get('icon') || '📦',
+        image: formData.get('image') || '',
+        stock: parseInt(formData.get('stock')) || 999,
+        isActive: formData.get('isActive') === 'on',
+        isFeatured: formData.get('isFeatured') === 'on'
+    };
+    
+    try {
+        showLoading();
+        
+        const response = await fetch(`${API_URL}/api/admin/products`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('✅ Product created with download link!', 'success');
+            closeModal('createProductModal');
+            event.target.reset();
+            loadProductsData();
+        } else {
+            showNotification(data.message || 'Failed to create product', 'error');
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Create product error:', error);
+        showNotification('Failed to create product', 'error');
+        hideLoading();
+    }
+}
+
+async function editProduct(productId) {
+    try {
+        showLoading();
+        
+        const response = await fetch(`${API_URL}/api/products/${productId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const product = data.product;
+            
+            document.getElementById('editProductId').value = product._id;
+            document.getElementById('editProductTitle').value = product.title;
+            document.getElementById('editProductDescription').value = product.description;
+            document.getElementById('editProductCategory').value = product.category;
+            document.getElementById('editProductPrice').value = product.price;
+            document.getElementById('editProductDownloadLink').value = product.downloadLink || '';
+            document.getElementById('editProductFileSize').value = product.fileSize || '';
+            document.getElementById('editProductVersion').value = product.version || '';
+            document.getElementById('editProductIsActive').checked = product.isActive;
+            document.getElementById('editProductIsFeatured').checked = product.isFeatured;
+            
+            openModal('editProductModal');
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Load product error:', error);
+        showNotification('Failed to load product', 'error');
+        hideLoading();
+    }
+}
+
+async function handleUpdateProduct(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const productId = formData.get('productId');
+    
+    const productData = {
+        title: formData.get('title'),
+        description: formData.get('description'),
+        category: formData.get('category'),
+        price: parseFloat(formData.get('price')),
+        downloadLink: formData.get('downloadLink') || '',
+        fileSize: formData.get('fileSize') || '',
+        version: formData.get('version') || '',
+        isActive: formData.get('isActive') === 'on',
+        isFeatured: formData.get('isFeatured') === 'on'
+    };
+    
+    try {
+        showLoading();
+        
+        const response = await fetch(`${API_URL}/api/admin/products/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(productData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('✅ Product updated successfully!', 'success');
+            closeModal('editProductModal');
+            loadProductsData();
+        } else {
+            showNotification(data.message || 'Failed to update product', 'error');
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Update product error:', error);
+        showNotification('Failed to update product', 'error');
+        hideLoading();
+    }
+}
+
+async function toggleProductStatus(productId, isActive) {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/products/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isActive })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(`Product ${isActive ? 'activated' : 'deactivated'}`, 'success');
+            loadProductsData();
+        } else {
+            showNotification(data.message || 'Failed to update', 'error');
+        }
+    } catch (error) {
+        console.error('Toggle product error:', error);
+        showNotification('Failed to update product', 'error');
+    }
+}
+
+async function deleteProduct(productId) {
+    if (!confirm('Delete this product? This will also delete all ratings and reviews.')) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/products/${productId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Product deleted', 'success');
+            loadProductsData();
+        } else {
+            showNotification(data.message || 'Failed to delete', 'error');
+        }
+    } catch (error) {
+        console.error('Delete product error:', error);
+        showNotification('Failed to delete product', 'error');
+    }
+}
+
+// ========== DOWNLOADS MANAGEMENT ==========
+async function loadDownloadsData() {
+    const downloadsPage = document.getElementById('downloadsPage');
+    
+    downloadsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Download Management</h1>
+            <p class="page-subtitle">Track product downloads and statistics</p>
+        </div>
+
+        <div class="download-stats-card">
+            <div class="download-stats-header">
+                <div>
+                    <h2 style="color: var(--primary); font-size: 1.8rem; margin-bottom: 5px;">Download Statistics</h2>
+                    <p style="color: var(--gray);">Monitor customer download activity</p>
+                </div>
+                <div class="download-stats-icon">📥</div>
+            </div>
+            <div class="download-stats-grid" id="downloadStatsGrid">
+                <div class="download-stat-item">
+                    <div class="download-stat-value">...</div>
+                    <div class="download-stat-label">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Recent Download Activity</h3>
+                <button class="btn btn-secondary" onclick="loadDownloadsData()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+            <div id="downloadActivityList"></div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Most Downloaded Products</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Downloads</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="popularProductsTable">
+                    <tr><td colspan="4" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    try {
+        showLoading();
+        
+        const response = await fetch(`${API_URL}/api/admin/downloads/stats`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const { totalDownloads, popularProducts, recentDownloads, downloadsByDate } = data.stats;
+            
+            const recentDownloadsCount = downloadsByDate.slice(-7).reduce((sum, day) => sum + day.count, 0);
+            
+            document.getElementById('downloadStatsGrid').innerHTML = `
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${totalDownloads}</div>
+                    <div class="download-stat-label">Total Downloads</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${recentDownloadsCount}</div>
+                    <div class="download-stat-label">Last 7 Days</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${popularProducts.length}</div>
+                    <div class="download-stat-label">Products Downloaded</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${recentDownloads.length}</div>
+                    <div class="download-stat-label">Recent Activity</div>
+                </div>
+            `;
+            
+            const activityList = document.getElementById('downloadActivityList');
+            if (recentDownloads && recentDownloads.length > 0) {
+                activityList.innerHTML = recentDownloads.slice(0, 10).map(download => `
+                    <div class="download-activity-item">
+                        <div class="download-activity-user">
+                            <div class="download-activity-avatar">👤</div>
+                            <div class="download-activity-details">
+                                <h4>${download.userId?.fullName || 'Unknown User'}</h4>
+                                <p>${download.userId?.email || 'No email'}</p>
+                            </div>
+                        </div>
+                        <div class="download-activity-product">
+                            <h5>${download.productId?.title || 'Product'}</h5>
+                            <span>${new Date(download.downloadedAt).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                activityList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📥</div>
+                        <h3>No download activity yet</h3>
+                        <p>Downloads will appear here once customers start downloading products</p>
+                    </div>
+                `;
+            }
+            
+            const popularTable = document.getElementById('popularProductsTable');
+            if (popularProducts && popularProducts.length > 0) {
+                popularTable.innerHTML = popularProducts.map(item => `
+                    <tr>
+                        <td>${item.product?.title || 'Unknown Product'}</td>
+                        <td>${item.product?.category || 'N/A'}</td>
+                        <td><strong style="color: var(--primary);">${item.count}</strong></td>
+                        <td>
+                            <button class="action-btn" onclick="navigateTo('products')" title="View Product">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else {
+                popularTable.innerHTML = '<tr><td colspan="4" style="text-align: center;">No download data available</td></tr>';
+            }
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Downloads stats error:', error);
+        showNotification('Failed to load download statistics', 'error');
+        hideLoading();
+    }
+}
+
+// ========== RATINGS & REVIEWS MANAGEMENT ==========
+async function loadRatingsData(filter = 'all') {
+    const ratingsPage = document.getElementById('ratingsPage');
+    
+    ratingsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Ratings & Reviews</h1>
+            <p class="page-subtitle">Monitor customer feedback and ratings</p>
+        </div>
+
+        <div class="rating-stats-card">
+            <div class="rating-stats-header">
+                <div>
+                    <h2 style="color: var(--rating-gold); font-size: 1.8rem; margin-bottom: 5px;">Rating Overview</h2>
+                    <p style="color: var(--gray);">Track product ratings and reviews</p>
+                </div>
+                <div class="rating-stats-icon">⭐</div>
+            </div>
+            <div class="download-stats-grid" id="ratingStatsGrid">
+                <div class="download-stat-item">
+                    <div class="download-stat-value">...</div>
+                    <div class="download-stat-label">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Product Ratings Summary</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Avg Rating</th>
+                        <th>Total Ratings</th>
+                        <th>5 Star</th>
+                        <th>1 Star</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productRatingsTable">
+                    <tr><td colspan="6" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert-box alert-info">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                <strong>Rating System Active</strong>
+                <p>Customers can rate products from 1-5 stars. All ratings are tracked and displayed on product pages.</p>
+            </div>
+        </div>
+    `;
+    
+    try {
+        showLoading();
+        
+        // Fetch dashboard stats for rating overview
+        const statsResponse = await fetch(`${API_URL}/api/admin/dashboard`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const statsData = await statsResponse.json();
+        
+        if (statsData.success) {
+            const { overview, recentStats } = statsData.dashboard;
+            
+            document.getElementById('ratingStatsGrid').innerHTML = `
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${overview.totalRatings || 0}</div>
+                    <div class="download-stat-label">Total Ratings</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${overview.totalReviews || 0}</div>
+                    <div class="download-stat-label">Total Reviews</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">${recentStats.recentRatings || 0}</div>
+                    <div class="download-stat-label">This Week</div>
+                </div>
+                <div class="download-stat-item">
+                    <div class="download-stat-value">4.5</div>
+                    <div class="download-stat-label">Avg Rating</div>
+                </div>
+            `;
+        }
+        
+        // Fetch products with ratings
+        const productsResponse = await fetch(`${API_URL}/api/admin/products`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        const productsData = await productsResponse.json();
+        
+        if (productsData.success) {
+            const tbody = document.getElementById('productRatingsTable');
+            const productsWithRatings = productsData.products.filter(p => p.reviewCount > 0);
+            
+            if (productsWithRatings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No ratings yet</td></tr>';
+            } else {
+                tbody.innerHTML = productsWithRatings.map(product => `
+                    <tr>
+                        <td>${product.title}</td>
+                        <td>
+                            <div class="rating-stars">
+                                ${renderStars(Math.round(product.rating || 0))}
+                                <span class="rating-value">${(product.rating || 0).toFixed(1)}</span>
+                            </div>
+                        </td>
+                        <td>${product.reviewCount || 0}</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>
+                            <button class="action-btn" onclick="navigateTo('products')" title="View Product">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
+        hideLoading();
+    } catch (error) {
+        console.error('Ratings error:', error);
+        showNotification('Failed to load ratings data', 'error');
+        hideLoading();
+    }
+}
+
+console.log('✅ Admin Dashboard v7.0 Part 3/4 loaded: Products, Downloads, Ratings');
+// ========== ADMIN DASHBOARD v7.0 - JAVASCRIPT PART 4 OF 4 ==========
+// Coupons, Blog, Settings Management
+
+// ========== COUPONS MANAGEMENT ==========
+async function loadCouponsData(status = 'all') {
+    const couponsPage = document.getElementById('couponsPage');
+    
+    couponsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Coupon Management</h1>
+            <p class="page-subtitle">Create and manage discount coupons</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">All Coupons</h3>
+                <div class="table-actions">
+                    <select class="form-select" id="couponStatusFilter" style="width: 150px;">
+                        <option value="all" ${status === 'all' ? 'selected' : ''}>All Coupons</option>
+                        <option value="active" ${status === 'active' ? 'selected' : ''}>Active</option>
+                        <option value="inactive" ${status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openModal('createCouponModal')">
+                        <i class="fas fa-plus"></i> Create Coupon
+                    </button>
+                    <button class="btn btn-secondary" onclick="seedCoupons()">
+                        <i class="fas fa-seedling"></i> Seed Default
+                    </button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Discount</th>
+                        <th>Type</th>
+                        <th>Usage</th>
+                        <th>Min. Purchase</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="couponsTable">
+                    <tr><td colspan="7" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    document.getElementById('couponStatusFilter').addEventListener('change', (e) => {
+        loadCouponsData(e.target.value);
+    });
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/coupons?status=${status}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const tbody = document.getElementById('couponsTable');
+            
+            if (!data.coupons || data.coupons.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No coupons found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.coupons.map(coupon => `
+                <tr>
+                    <td><strong>${coupon.code}</strong></td>
+                    <td>${coupon.discount}${coupon.type === 'percentage' ? '%' : '$'}</td>
+                    <td>${coupon.type}</td>
+                    <td>${coupon.usageCount}${coupon.usageLimit ? `/${coupon.usageLimit}` : ''}</td>
+                    <td>$${coupon.minPurchaseAmount}</td>
+                    <td><span class="status-badge ${coupon.isActive ? 'status-active' : 'status-inactive'}">${coupon.isActive ? 'Active' : 'Inactive'}</span></td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn" onclick="toggleCouponStatus('${coupon.code}', ${!coupon.isActive})" title="${coupon.isActive ? 'Deactivate' : 'Activate'}">
+                                <i class="fas fa-toggle-${coupon.isActive ? 'on' : 'off'}"></i>
+                            </button>
+                            <button class="action-btn danger" onclick="deleteCoupon('${coupon.code}')" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Coupons error:', error);
+        showNotification('Failed to load coupons', 'error');
+    }
+}
+
+async function handleCreateCoupon(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const couponData = {
+        code: formData.get('code').toUpperCase(),
+        discount: parseFloat(formData.get('discount')),
+        type: formData.get('type'),
+        minPurchaseAmount: parseFloat(formData.get('minPurchaseAmount')) || 0,
+        description: formData.get('description') || ''
+    };
+    
+    if (formData.get('usageLimit')) {
+        couponData.usageLimit = parseInt(formData.get('usageLimit'));
+    }
+    
+    if (formData.get('expiresAt')) {
+        couponData.expiresAt = formData.get('expiresAt');
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/coupons`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(couponData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Coupon created successfully', 'success');
+            closeModal('createCouponModal');
+            event.target.reset();
+            loadCouponsData();
+        } else {
+            showNotification(data.message || 'Failed to create coupon', 'error');
+        }
+    } catch (error) {
+        console.error('Create coupon error:', error);
+        showNotification('Failed to create coupon', 'error');
+    }
+}
+
+async function toggleCouponStatus(code, isActive) {
+    try {
+        const response = await fetch(`${API_URL}/api/admin/coupons/${code}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isActive })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(`Coupon ${isActive ? 'activated' : 'deactivated'}`, 'success');
+            loadCouponsData();
+        } else {
+            showNotification(data.message || 'Failed to update', 'error');
+        }
+    } catch (error) {
+        console.error('Toggle coupon error:', error);
+        showNotification('Failed to update coupon', 'error');
+    }
+}
+
+async function deleteCoupon(code) {
+    if (!confirm(`Delete coupon "${code}"?`)) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/coupons/${code}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Coupon deleted', 'success');
+            loadCouponsData();
+        } else {
+            showNotification(data.message || 'Failed to delete', 'error');
+        }
+    } catch (error) {
+        console.error('Delete coupon error:', error);
+        showNotification('Failed to delete coupon', 'error');
+    }
+}
+
+async function seedCoupons() {
+    if (!confirm('Seed default coupons?')) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/coupons/seed`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Default coupons seeded', 'success');
+            loadCouponsData();
+        }
+    } catch (error) {
+        console.error('Seed coupons error:', error);
+        showNotification('Failed to seed coupons', 'error');
+    }
+}
+
+// ========== BLOG MANAGEMENT ==========
+async function loadBlogData(status = 'all') {
+    const blogPage = document.getElementById('blogPage');
+    
+    blogPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Blog Management</h1>
+            <p class="page-subtitle">Create and manage blog posts</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">All Blog Posts</h3>
+                <div class="table-actions">
+                    <select class="form-select" id="blogStatusFilter" style="width: 150px;">
+                        <option value="all" ${status === 'all' ? 'selected' : ''}>All Posts</option>
+                        <option value="published" ${status === 'published' ? 'selected' : ''}>Published</option>
+                        <option value="draft" ${status === 'draft' ? 'selected' : ''}>Draft</option>
+                        <option value="archived" ${status === 'archived' ? 'selected' : ''}>Archived</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="openModal('createBlogModal')">
+                        <i class="fas fa-plus"></i> Create Post
+                    </button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Views</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="blogTable">
+                    <tr><td colspan="6" style="text-align: center;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    document.getElementById('blogStatusFilter').addEventListener('change', (e) => {
+        loadBlogData(e.target.value);
+    });
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/blog/posts?status=${status}`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const tbody = document.getElementById('blogTable');
+            
+            if (!data.posts || data.posts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No posts found</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = data.posts.map(post => `
+                <tr>
+                    <td>${post.title}</td>
+                    <td>${post.category}</td>
+                    <td><span class="status-badge status-${post.status}">${post.status}</span></td>
+                    <td>${post.views}</td>
+                    <td>${new Date(post.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="action-btn" onclick="toggleBlogStatus('${post._id}', '${post.status}')" title="Change Status">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                            <button class="action-btn danger" onclick="deleteBlogPost('${post._id}')" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Blog error:', error);
+        showNotification('Failed to load blog posts', 'error');
+    }
+}
+
+async function handleCreateBlogPost(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const tags = formData.get('tags') ? formData.get('tags').split(',').map(t => t.trim()) : [];
+    
+    const postData = {
+        title: formData.get('title'),
+        excerpt: formData.get('excerpt'),
+        content: formData.get('content'),
+        category: formData.get('category'),
+        tags: tags,
+        featuredImage: formData.get('featuredImage') || '',
+        status: formData.get('status')
+    };
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/blog/posts`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Blog post created successfully', 'success');
+            closeModal('createBlogModal');
+            event.target.reset();
+            loadBlogData();
+        } else {
+            showNotification(data.message || 'Failed to create post', 'error');
+        }
+    } catch (error) {
+        console.error('Create post error:', error);
+        showNotification('Failed to create post', 'error');
+    }
+}
+
+async function toggleBlogStatus(postId, currentStatus) {
+    const statuses = ['draft', 'published', 'archived'];
+    const currentIndex = statuses.indexOf(currentStatus);
+    const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+    
+    if (!confirm(`Change post status to "${nextStatus}"?`)) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/blog/posts/${postId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: nextStatus })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(`Post status updated to ${nextStatus}`, 'success');
+            loadBlogData();
+        } else {
+            showNotification(data.message || 'Failed to update', 'error');
+        }
+    } catch (error) {
+        console.error('Update post error:', error);
+        showNotification('Failed to update post', 'error');
+    }
+}
+
+async function deleteBlogPost(postId) {
+    if (!confirm('Delete this post?')) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/blog/posts/${postId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Post deleted', 'success');
+            loadBlogData();
+        } else {
+            showNotification(data.message || 'Failed to delete', 'error');
+        }
+    } catch (error) {
+        console.error('Delete post error:', error);
+        showNotification('Failed to delete post', 'error');
+    }
+}
+
+// ========== SETTINGS MANAGEMENT ==========
+async function loadSettingsData() {
+    const settingsPage = document.getElementById('settingsPage');
+    
+    settingsPage.innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">System Settings</h1>
+            <p class="page-subtitle">Configure system preferences</p>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">General Settings</h3>
+                <button class="btn btn-primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+            <form id="settingsForm">
+                <div class="form-group">
+                    <label class="form-label">Site Name</label>
+                    <input type="text" class="form-input" name="siteName" id="siteName" placeholder="UYEH TECH">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Email</label>
+                    <input type="email" class="form-input" name="contactEmail" id="contactEmail" placeholder="contact@uyehtech.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="allowRegistration" id="allowRegistration"> Allow User Registration
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="maintenanceMode" id="maintenanceMode"> Maintenance Mode
+                    </label>
+                </div>
+            </form>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <h3 style="color: var(--primary); font-size: 1.1rem;">
+                        <i class="fas fa-info-circle"></i> System Info
+                    </h3>
+                </div>
+                <div style="padding: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--gray);">Version</span>
+                        <span style="color: var(--primary); font-weight: 600;">v7.0.0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--gray);">Download Links</span>
+                        <span style="color: var(--success); font-weight: 600;">✅ Enabled</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--gray);">Rating System</span>
+                        <span style="color: var(--success); font-weight: 600;">✅ Active</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                        <span style="color: var(--gray);">Review System</span>
+                        <span style="color: var(--success); font-weight: 600;">✅ Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert-box alert-success">
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <strong>All Systems Operational</strong>
+                <p>Admin Dashboard v7.0 with Rating System, Download Links, and Full Analytics</p>
+            </div>
+        </div>
+    `;
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings`, {
+            headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.settings) {
+            const settings = data.settings;
+            document.getElementById('siteName').value = settings.siteName || '';
+            document.getElementById('contactEmail').value = settings.contactEmail || '';
+            document.getElementById('allowRegistration').checked = settings.allowRegistration !== false;
+            document.getElementById('maintenanceMode').checked = settings.maintenanceMode || false;
+        }
+    } catch (error) {
+        console.error('Settings error:', error);
+        showNotification('Failed to load settings', 'error');
+    }
+}
+
+async function saveSettings() {
+    const form = document.getElementById('settingsForm');
+    const formData = new FormData(form);
+    
+    const settingsData = {
+        siteName: formData.get('siteName'),
+        contactEmail: formData.get('contactEmail'),
+        allowRegistration: formData.get('allowRegistration') === 'on',
+        maintenanceMode: formData.get('maintenanceMode') === 'on'
+    };
+    
+    try {
+        const response = await fetch(`${API_URL}/api/admin/settings`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${adminToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(settingsData)
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('Settings saved successfully', 'success');
+        } else {
+            showNotification(data.message || 'Failed to save settings', 'error');
+        }
+    } catch (error) {
+        console.error('Save settings error:', error);
+        showNotification('Failed to save settings', 'error');
+    }
+}
+
+console.log('✅ Admin Dashboard v7.0 Part 4/4 loaded: Coupons, Blog, Settings');
+console.log('🎉 Admin Dashboard v7.0 COMPLETE - All Features Ready!');
+console.log('📦 Features: Rating System, Downloads, Analytics, Users, Orders, Products, Coupons, Blog, Settings');
+    </script>
+</body>
+</html>

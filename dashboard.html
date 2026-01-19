@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - UYEH TECH</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+   <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ========== LOADING OVERLAY ========== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(0, 255, 136, 0.2);
+    border-top-color: #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-spinner-small {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(0, 255, 136, 0.2);
+    border-top-color: #00ff88;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    margin-top: 20px;
+    color: #00ff88;
+    font-size: 1.1rem;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.loading-state p {
+    color: #9ca3af;
+    margin-top: 10px;
+}
+
+/* ========== SIDEBAR ========== */
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+    border-right: 1px solid rgba(0, 255, 136, 0.2);
+    padding: 30px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.sidebar-logo {
+    padding: 0 30px 30px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.sidebar-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 30px 15px;
+}
+
+.menu-item {
+    margin-bottom: 5px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: #d1d5db;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.menu-link:hover,
+.menu-link.active {
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    transform: translateX(5px);
+}
+
+.menu-icon {
+    font-size: 1.3rem;
+}
+
+.sidebar-footer {
+    padding: 20px 30px;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+    margin-top: auto;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 10px;
+    color: #ff4444;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    transform: scale(1.02);
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 40px;
+    transition: all 0.3s;
+}
+
+/* ========== PROFILE HEADER ========== */
+.profile-header {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00b359, #00ff88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    border: 3px solid rgba(0, 255, 136, 0.5);
+    flex-shrink: 0;
+}
+
+.profile-avatar-large img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #00ff88;
+    margin-bottom: 10px;
+}
+
+.profile-email {
+    color: #9ca3af;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.profile-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 8px 16px;
+    background: rgba(0, 255, 136, 0.2);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #00ff88;
+    font-weight: 600;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #00b359, #00ff88);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    color: #00ff88;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 255, 136, 0.2);
+}
+
+/* ========== STATS CARDS ========== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+}
+
+.stat-label {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #00ff88;
+}
+
+/* ========== RECENT ACTIVITY ========== */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #00ff88;
+    margin-bottom: 25px;
+}
+
+.activity-list {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.activity-date {
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.activity-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-completed {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+}
+
+.status-pending {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    border-radius: 20px;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    font-family: 'Playfair Display', serif;
+    color: #00ff88;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: #9ca3af;
+    margin-bottom: 30px;
+}
+
+/* ========== CHAT WIDGET ========== */
+.chat-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: green;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(2, 223, 87, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.chat-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
+}
+
+.chat-toggle svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    width: 400px;
+    height: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 48px rgba(80, 161, 101, 0.822);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chat-container.active {
+    display: flex;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #070707fa 0%, #158b28 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chat-header p {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 4px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background: rgba(15, 209, 8, 0.2);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 16px;
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message-content {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.bot .message-content {
+    background: white;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.message.user .message-content {
+    background: linear-gradient(135deg, #4ee667 0%, #194919 100%);
+    color: white;
+}
+
+.typing-indicator {
+    display: none;
+    padding: 12px 16px;
+    background: white;
+    border-radius: 12px;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(86, 163, 98, 0.08);
+}
+
+.typing-indicator.active {
+    display: block;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #080808;
+    margin: 0 2px;
+    animation: bounce 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+}
+
+.chat-input-container {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e9ecef;
+}
+
+.chat-input {
+    display: flex;
+    gap: 12px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 24px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+
+/* ========== MOBILE MENU TOGGLE ========== */
+.mobile-menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #00b359, #00ff88);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.4);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 968px) {
+    .sidebar {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .sidebar.active {
+        width: 280px;
+        padding: 30px 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-name {
+        font-size: 2rem;
+    }
+
+    .profile-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+  
+}
+   </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading your dashboard...</p>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-text">
+                <img src="uyehtech logo.png" width="100px" height="100px" alt="UYEH TECH">
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li class="menu-item">
+                <a href="dashboard.html" class="menu-link active">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="my-products.html" class="menu-link">
+                    <span class="menu-icon">🛍️</span>
+                    <span>My Products</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="orders.html" class="menu-link">
+                    <span class="menu-icon">📋</span>
+                    <span>Order History</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="settings.html" class="menu-link">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="store.html" class="menu-link">
+                    <span class="menu-icon">🛒</span>
+                    <span>Browse Store</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" id="logoutBtn">
+                🚪 Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-avatar-large" id="profileAvatar">U</div>
+            <div class="profile-info">
+                <h1 class="profile-name" id="profileName">Loading...</h1>
+                <p class="profile-email" id="profileEmail">Loading...</p>
+                <div class="profile-badges">
+                    <span class="badge" id="verifiedBadge">⏳ Loading...</span>
+                    <span class="badge" id="memberSinceBadge">Loading...</span>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <a href="settings.html" class="btn btn-primary">⚙️ Edit Profile</a>
+                <a href="store.html" class="btn btn-secondary">🛒 Browse Store</a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Total Purchases</div>
+                        <div class="stat-value" id="totalPurchases">0</div>
+                    </div>
+                    <div class="stat-icon">📦</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Total Spent</div>
+                        <div class="stat-value" id="totalSpent">$0</div>
+                    </div>
+                    <div class="stat-icon">💰</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Products Owned</div>
+                        <div class="stat-value" id="totalProducts">0</div>
+                    </div>
+                    <div class="stat-icon">🎁</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div>
+                        <div class="stat-label">Last Login</div>
+                        <div class="stat-value" style="font-size: 1.2rem;" id="lastLogin">Today</div>
+                    </div>
+                    <div class="stat-icon">🕒</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <h2 class="section-title">Recent Activity</h2>
+        <div class="activity-list" id="activityList">
+            <div class="loading-state">
+                <div class="loading-spinner-small"></div>
+                <p>Loading activity...</p>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- JavaScript -->
+    <script>
+        // ========== CONFIGURATION ==========
+const API_URL = 'https://uyehtechbackend.onrender.com';
+
+// ========== STATE ==========
+let conversationHistory = [];
+let userData = null;
+let ordersData = [];
+
+// ========== INITIALIZATION ==========
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ Dashboard initializing...');
+    initializeApp();
+});
+
+async function initializeApp() {
+    checkAuth();
+    setupEventListeners();
+    await loadAllData();
+    hideLoadingOverlay();
+}
+
+// ========== AUTH CHECK ==========
+function checkAuth() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (!token || !user) {
+        console.warn('⚠️ No authentication found');
+        window.location.href = 'login.html';
+        return false;
+    }
+    
+    try {
+        userData = JSON.parse(user);
+        return true;
+    } catch (error) {
+        console.error('❌ Error parsing user data:', error);
+        clearAuthAndRedirect();
+        return false;
+    }
+}
+
+function clearAuthAndRedirect() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+}
+
+// ========== EVENT LISTENERS ==========
+function setupEventListeners() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            if (sidebar) sidebar.classList.toggle('active');
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 968 && sidebar && mobileMenuBtn) {
+            if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 968 && sidebar) {
+            sidebar.classList.remove('active');
+        }
+    });
+}
+
+// ========== LOAD ALL DATA ==========
+async function loadAllData() {
+    try {
+        showLoadingOverlay();
+        
+        // Load profile data
+        const profile = await fetchUserProfile();
+        if (profile) {
+            displayUserProfile(profile);
+        }
+        
+        // Load orders data
+        const orders = await fetchUserOrders();
+        if (orders) {
+            ordersData = orders;
+            displayStats(orders);
+            displayRecentActivity(orders);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error loading data:', error);
+        showNotification('Failed to load some data. Please refresh.', 'error');
+    } finally {
+        hideLoadingOverlay();
+    }
+}
+
+// ========== FETCH USER PROFILE ==========
+async function fetchUserProfile() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        clearAuthAndRedirect();
+        return null;
+    }
+    
+    try {
+        const response = await fetch(`${API_URL}/api/profile`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (response.status === 401 || response.status === 403) {
+            showNotification('Session expired. Please login again.', 'error');
+            clearAuthAndRedirect();
+            return null;
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.user) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+            userData = data.user;
+            return data.user;
+        } else {
+            throw new Error(data.message || 'Failed to fetch profile');
+        }
+        
+    } catch (error) {
+        console.error('❌ Fetch profile error:', error);
+        return null;
+    }
+}
+
+// ========== FETCH USER ORDERS ==========
+async function fetchUserOrders() {
+    const token = localStorage.getItem('token');
+    if (!token) return [];
+    
+    try {
+        const response = await fetch(`${API_URL}/api/orders/detailed`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!response.ok) {
+            console.warn('⚠️ Failed to fetch orders');
+            return [];
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.orders) {
+            localStorage.setItem('user_orders', JSON.stringify(data.orders));
+            return data.orders;
+        }
+        
+        return [];
+        
+    } catch (error) {
+        console.error('❌ Fetch orders error:', error);
+        return [];
+    }
+}
+
+// ========== DISPLAY USER PROFILE ==========
+function displayUserProfile(user) {
+    if (!user) return;
+    
+    // Display name
+    const nameEl = document.getElementById('profileName');
+    if (nameEl) nameEl.textContent = user.name || 'User';
+    
+    // Display email
+    const emailEl = document.getElementById('profileEmail');
+    if (emailEl) emailEl.textContent = user.email || '';
+    
+    // Display avatar
+    const avatarEl = document.getElementById('profileAvatar');
+    if (avatarEl) {
+        if (user.profileImage) {
+            avatarEl.innerHTML = `<img src="${user.profileImage}" alt="Profile">`;
+        } else {
+            const initial = (user.name || 'U').charAt(0).toUpperCase();
+            avatarEl.textContent = initial;
+        }
+    }
+    
+    // Display verified badge
+    const verifiedBadge = document.getElementById('verifiedBadge');
+    if (verifiedBadge) {
+        if (user.emailVerified) {
+            verifiedBadge.textContent = '✅ Verified';
+            verifiedBadge.style.background = 'rgba(0, 255, 136, 0.2)';
+            verifiedBadge.style.color = '#00ff88';
+        } else {
+            verifiedBadge.textContent = '⚠️ Not Verified';
+            verifiedBadge.style.background = 'rgba(255, 165, 0, 0.2)';
+            verifiedBadge.style.color = '#ffa500';
+        }
+    }
+    
+    // Display member since
+    const memberSinceBadge = document.getElementById('memberSinceBadge');
+    if (memberSinceBadge && user.createdAt) {
+        const date = new Date(user.createdAt);
+        const year = date.getFullYear();
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        memberSinceBadge.textContent = `Member since ${month} ${year}`;
+    }
+    
+    // Display last login
+    const lastLoginEl = document.getElementById('lastLogin');
+    if (lastLoginEl && user.lastLogin) {
+        lastLoginEl.textContent = formatTimeAgo(new Date(user.lastLogin));
+    }
+}
+
+// ========== DISPLAY STATS ==========
+function displayStats(orders) {
+    if (!orders || orders.length === 0) {
+        animateValue('totalPurchases', 0, 0, 500);
+        animateValue('totalSpent', 0, 0, 500, '$');
+        animateValue('totalProducts', 0, 0, 500);
+        return;
+    }
+    
+    // Calculate total purchases
+    const totalPurchases = orders.length;
+    
+    // Calculate total spent (only completed orders)
+    const totalSpent = orders
+        .filter(order => order.status === 'completed')
+        .reduce((sum, order) => sum + (order.total || 0), 0);
+    
+    // Calculate total products owned (unique products from completed orders)
+    const uniqueProducts = new Set();
+    orders
+        .filter(order => order.status === 'completed')
+        .forEach(order => {
+            if (order.items && Array.isArray(order.items)) {
+                order.items.forEach(item => {
+                    if (item.id) uniqueProducts.add(item.id);
+                });
+            }
+        });
+    const totalProducts = uniqueProducts.size;
+    
+    // Animate values
+    animateValue('totalPurchases', 0, totalPurchases, 1000);
+    animateValue('totalSpent', 0, totalSpent, 1000, '$');
+    animateValue('totalProducts', 0, totalProducts, 1000);
+}
+
+// ========== ANIMATE VALUE ==========
+function animateValue(elementId, start, end, duration, prefix = '') {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const range = end - start;
+    const increment = range / (duration / 16);
+    let current = start;
+
+    const timer = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            current = end;
+            clearInterval(timer);
+        }
+        
+        if (prefix === '$') {
+            element.textContent = '$' + Math.floor(current).toFixed(0);
+        } else {
+            element.textContent = prefix + Math.floor(current);
+        }
+    }, 16);
+}
+
+// ========== DISPLAY RECENT ACTIVITY ==========
+function displayRecentActivity(orders) {
+    const activityList = document.getElementById('activityList');
+    if (!activityList) return;
+    
+    if (!orders || orders.length === 0) {
+        activityList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <h3>No Activity Yet</h3>
+                <p>Start shopping to see your activity here</p>
+                <a href="store.html" class="btn btn-primary">Browse Store</a>
+            </div>
+        `;
+        return;
+    }
+    
+    // Get last 5 activities, sorted by most recent
+    const recentOrders = orders
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 5);
+    
+    activityList.innerHTML = recentOrders.map(order => {
+        const date = new Date(order.createdAt);
+        const formattedDate = formatTimeAgo(date);
+        const itemCount = order.items ? order.items.length : 0;
+        const statusClass = order.status === 'completed' ? 'status-completed' : 'status-pending';
+        const statusText = order.status === 'completed' ? '✓ Completed' : '⏳ Pending';
+        
+        return `
+            <div class="activity-item">
+                <div class="activity-icon">🛍️</div>
+                <div class="activity-content">
+                    <div class="activity-title">
+                        ${itemCount} item${itemCount !== 1 ? 's' : ''} • $${order.total.toFixed(2)}
+                    </div>
+                    <div class="activity-date">${formattedDate} • Order ${order.orderReference}</div>
+                </div>
+                <span class="activity-status ${statusClass}">${statusText}</span>
+            </div>
+        `;
+    }).join('');
+}
+
+// ========== FORMAT TIME AGO ==========
+function formatTimeAgo(date) {
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffHours / 24);
+    
+    if (diffMins < 1) {
+        return 'Just now';
+    } else if (diffMins < 60) {
+        return `${diffMins} min${diffMins !== 1 ? 's' : ''} ago`;
+    } else if (diffHours < 24) {
+        return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+    } else if (diffDays === 1) {
+        return 'Yesterday';
+    } else if (diffDays < 7) {
+        return `${diffDays} days ago`;
+    } else {
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+}
+
+// ========== LOADING OVERLAY ==========
+function showLoadingOverlay() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.classList.remove('hidden');
+    }
+}
+
+function hideLoadingOverlay() {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+    }
+}
+
+// ========== LOGOUT ==========
+function handleLogout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('user_orders');
+        showNotification('👋 Logged out successfully', 'success');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 500);
+    }
+}
+
+// ========== NOTIFICATIONS ==========
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    
+    const colors = {
+        success: 'linear-gradient(135deg, #00b359, #00ff88)',
+        error: 'linear-gradient(135deg, #ff4444, #ff6666)',
+        info: 'linear-gradient(135deg, #00b359, #00ff88)'
+    };
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 18px 25px;
+        border-radius: 12px;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+        z-index: 10000;
+        max-width: 400px;
+        font-family: 'Montserrat', sans-serif;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(400px)';
+        notification.style.transition = 'all 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
+// ========== CHAT FUNCTIONS ==========
+function addChatMessage(content, isUser = false) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'message-content';
+    contentDiv.textContent = content;
+    
+    messageDiv.appendChild(contentDiv);
+    chatMessages.appendChild(messageDiv);
+    
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    const chatMessages = document.getElementById('chatMessages');
+    if (typingIndicator) {
+        typingIndicator.classList.add('active');
+    }
+    if (chatMessages) {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+}
+
+function hideTyping() {
+    const typingIndicator = document.getElementById('typingIndicator');
+    if (typingIndicator) {
+        typingIndicator.classList.remove('active');
+    }
+}
+
+function showChatError(message) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) return;
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    chatMessages.appendChild(errorDiv);
+    
+    setTimeout(() => errorDiv.remove(), 5000);
+}
+
+async function sendMessage() {
+    const messageInput = document.getElementById('messageInput');
+    const sendBtn = document.getElementById('sendBtn');
+    if (!messageInput || !sendBtn) return;
+    
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    addChatMessage(message, true);
+    conversationHistory.push({ role: 'user', content: message });
+    messageInput.value = '';
+    sendBtn.disabled = true;
+    
+    showTyping();
+
+    try {
+        const response = await fetch(`${API_URL}/api/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message: message,
+                history: conversationHistory
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        hideTyping();
+        addChatMessage(data.response, false);
+        conversationHistory.push({ role: 'assistant', content: data.response });
+
+    } catch (error) {
+        hideTyping();
+        console.error('❌ Chat error:', error);
+        showChatError('Sorry, I encountered an error. Please try again or contact support.');
+        conversationHistory.pop();
+    } finally {
+        sendBtn.disabled = false;
+        messageInput.focus();
+    }
+}
+
+// ========== HANDLE PAGE VISIBILITY ==========
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        fetchUserProfile().then(user => {
+            if (user) {
+                displayUserProfile(user);
+            }
+        });
+    }
+});
+
+// ========== REFRESH DATA PERIODICALLY ==========
+setInterval(async () => {
+    if (!document.hidden) {
+        const profile = await fetchUserProfile();
+        if (profile) {
+            displayUserProfile(profile);
+        }
+    }
+}, 5 * 60 * 1000); // Refresh every 5 minutes
+
+  // ========== UYEH TECH CHAT WIDGET JAVASCRIPT ==========
+
+(function() {
+    'use strict';
+
+    // DOM Elements
+    const chatToggle = document.getElementById('uyehChatToggle');
+    const chatContainer = document.getElementById('uyehChatContainer');
+    const closeChat = document.getElementById('uyehCloseChat');
+    const messagesContainer = document.getElementById('uyehChatMessages');
+    const messageInput = document.getElementById('uyehMessageInput');
+    const sendBtn = document.getElementById('uyehSendBtn');
+    const typingIndicator = document.getElementById('uyehTypingIndicator');
+    const quickActions = document.getElementById('uyehQuickActions');
+    const agentForm = document.getElementById('uyehAgentForm');
+    const chatInput = document.getElementById('uyehChatInput');
+    const contactForm = document.getElementById('uyehContactForm');
+    const cancelAgentBtn = document.getElementById('uyehCancelAgent');
+    const unreadBadge = document.getElementById('uyehUnreadBadge');
+
+    // State
+    let conversationHistory = [];
+    let userName = 'Guest';
+    let userEmail = '';
+    let isWaitingForAgent = false;
+
+    // Predefined responses
+    const botResponses = {
+        'greeting': [
+            "Hello! 👋 Welcome to UYEH TECH! How can I assist you today?",
+            "Hi there! 😊 Great to see you! What brings you here today?",
+            "Hey! Welcome! I'm here to help with anything you need. What can I do for you?"
+        ],
+        'order': [
+            "I'd be happy to help with your order! 📦\n\nCould you tell me:\n• Your order number?\n• What issue you're experiencing?\n\nOr would you like to speak directly with a support agent?",
+            "Let me help you with that order issue! What's your order reference number?"
+        ],
+        'technical': [
+            "I'm here to help with technical questions! 💻\n\nWhat technical issue are you facing? The more details you provide, the better I can assist you!\n\nOr I can connect you with our technical support team.",
+            "Technical support here! What seems to be the problem? I'll do my best to help!"
+        ],
+        'agent': [
+            "I'd be happy to connect you with one of our support agents! 👨‍💼\n\nPlease provide your details and I'll create a support ticket for you.",
+            "Of course! Let me connect you with a live agent. Please fill in the form below."
+        ],
+        'thanks': [
+            "You're very welcome! 😊 Is there anything else I can help you with?",
+            "Happy to help! Let me know if you need anything else!",
+            "My pleasure! Feel free to ask if you have more questions."
+        ],
+        'help': [
+            "Here's what I can help you with:\n\n📦 Order tracking & issues\n💻 Technical support\n💳 Billing questions\n🔐 Account help\n📱 Product information\n\nWhat would you like help with?",
+            "I'm here to assist with:\n• Orders\n• Technical issues\n• Account questions\n• Product info\n\nWhat do you need?"
+        ],
+        'pricing': [
+            "I'd be happy to help you with pricing information! 💰\n\nWhat product or service are you interested in? I can provide you with current pricing and any available promotions.",
+            "Let me help you with pricing! Which product would you like to know about?"
+        ],
+        'hours': [
+            "Our support team is available:\n\n🕐 Monday - Friday: 9am - 6pm\n🕐 Saturday: 10am - 4pm\n🕐 Sunday: Closed\n\nI'm here 24/7 to help answer questions!",
+            "We're here to help! Our business hours are 9am-6pm weekdays. But I'm always available to assist you!"
+        ],
+        'default': [
+            "I understand! Let me see how I can help with that. Could you provide more details?",
+            "Got it! Can you tell me more about what you need help with?",
+            "I'm here to help! Could you give me a bit more information so I can assist you better?"
+        ]
+    };
+
+    // Initialize the chat widget
+    function init() {
+        // Show welcome message after delay
+        setTimeout(() => {
+            addBotMessage("Hello! 👋 Welcome to UYEH TECH!\n\nI'm your virtual assistant. How can I help you today?");
+            if (!chatContainer.classList.contains('active')) {
+                showUnreadBadge();
+            }
+        }, 1000);
+
+        // Event listeners
+        chatToggle.addEventListener('click', openChat);
+        closeChat.addEventListener('click', closeChatHandler);
+        sendBtn.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Quick action buttons
+        document.querySelectorAll('.uyeh-quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const message = btn.dataset.message;
+                sendUserMessage(message);
+            });
+        });
+
+        // Agent form handlers
+        contactForm.addEventListener('submit', handleAgentRequest);
+        cancelAgentBtn.addEventListener('click', hideAgentForm);
+    }
+
+    // Chat control functions
+    function openChat() {
+        chatContainer.classList.add('active');
+        messageInput.focus();
+        hideUnreadBadge();
+    }
+
+    function closeChatHandler() {
+        chatContainer.classList.remove('active');
+    }
+
+    function showUnreadBadge() {
+        unreadBadge.style.display = 'flex';
+    }
+
+    function hideUnreadBadge() {
+        unreadBadge.style.display = 'none';
+    }
+
+    // Message handling
+    function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        sendUserMessage(message);
+        messageInput.value = '';
+    }
+
+    function sendUserMessage(message) {
+        // Add user message
+        addUserMessage(message);
+        conversationHistory.push({ role: 'user', message, timestamp: new Date() });
+
+        // Show typing indicator
+        showTyping();
+
+        // Generate response with random delay for realistic feel
+        setTimeout(() => {
+            hideTyping();
+            const response = generateResponse(message);
+            addBotMessage(response);
+            conversationHistory.push({ role: 'bot', message: response, timestamp: new Date() });
+        }, 1000 + Math.random() * 1000);
+    }
+
+    function addUserMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'uyeh-message user';
+        messageDiv.innerHTML = `
+            <div class="uyeh-message-avatar">👤</div>
+            <div class="uyeh-message-content">
+                ${escapeHtml(message)}
+                <div class="uyeh-message-time">${getCurrentTime()}</div>
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+        scrollToBottom();
+    }
+
+    function addBotMessage(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'uyeh-message bot';
+        messageDiv.innerHTML = `
+            <div class="uyeh-message-avatar">🤖</div>
+            <div class="uyeh-message-content">
+                ${formatMessage(message)}
+                <div class="uyeh-message-time">${getCurrentTime()}</div>
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+        scrollToBottom();
+
+        // Show unread badge if chat is closed
+        if (!chatContainer.classList.contains('active')) {
+            showUnreadBadge();
+        }
+    }
+
+    // Response generation
+    function generateResponse(message) {
+        const lowerMessage = message.toLowerCase();
+
+        // Check for agent request
+        if (lowerMessage.includes('agent') || lowerMessage.includes('human') || 
+            lowerMessage.includes('person') || lowerMessage.includes('talk to') ||
+            lowerMessage.includes('speak to') || lowerMessage.includes('representative')) {
+            showAgentForm();
+            return getRandomResponse('agent');
+        }
+
+        // Check for greetings
+        if (lowerMessage.match(/\b(hi|hello|hey|greetings|good morning|good afternoon|good evening)\b/)) {
+            return getRandomResponse('greeting');
+        }
+
+        // Check for thanks
+        if (lowerMessage.match(/\b(thanks|thank you|thx|appreciate|grateful)\b/)) {
+            return getRandomResponse('thanks');
+        }
+
+        // Check for goodbye
+        if (lowerMessage.match(/\b(bye|goodbye|see you|later|gtg)\b/)) {
+            return "Thanks for chatting! Feel free to return anytime you need help. Have a great day! 👋";
+        }
+
+        // Check for order help
+        if (lowerMessage.includes('order') || lowerMessage.includes('purchase') || 
+            lowerMessage.includes('buy') || lowerMessage.includes('delivery') ||
+            lowerMessage.includes('shipping') || lowerMessage.includes('track')) {
+            return getRandomResponse('order');
+        }
+
+        // Check for technical help
+        if (lowerMessage.includes('technical') || lowerMessage.includes('problem') || 
+            lowerMessage.includes('issue') || lowerMessage.includes('bug') ||
+            lowerMessage.includes('error') || lowerMessage.includes('not working')) {
+            return getRandomResponse('technical');
+        }
+
+        // Check for pricing
+        if (lowerMessage.includes('price') || lowerMessage.includes('cost') || 
+            lowerMessage.includes('how much') || lowerMessage.includes('pricing')) {
+            return getRandomResponse('pricing');
+        }
+
+        // Check for hours/availability
+        if (lowerMessage.includes('hours') || lowerMessage.includes('open') || 
+            lowerMessage.includes('available') || lowerMessage.includes('schedule')) {
+            return getRandomResponse('hours');
+        }
+
+        // Check for help request
+        if (lowerMessage.includes('help') || lowerMessage === '?') {
+            return getRandomResponse('help');
+        }
+
+        // Default response
+        return getRandomResponse('default');
+    }
+
+    function getRandomResponse(type) {
+        const responses = botResponses[type] || botResponses['default'];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Typing indicator
+    function showTyping() {
+        typingIndicator.classList.add('active');
+        scrollToBottom();
+    }
+
+    function hideTyping() {
+        typingIndicator.classList.remove('active');
+    }
+
+    // Agent form handling
+    function showAgentForm() {
+        quickActions.style.display = 'none';
+        chatInput.style.display = 'none';
+        agentForm.style.display = 'block';
+        isWaitingForAgent = true;
+    }
+
+    function hideAgentForm() {
+        agentForm.style.display = 'none';
+        chatInput.style.display = 'flex';
+        quickActions.style.display = 'flex';
+        isWaitingForAgent = false;
+        addBotMessage("No problem! Feel free to continue chatting or ask me anything else. 😊");
+    }
+
+    async function handleAgentRequest(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('uyehName').value.trim();
+        const email = document.getElementById('uyehEmail').value.trim();
+        const priority = document.getElementById('uyehPriority').value;
+
+        if (!name || !email) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        userName = name;
+        userEmail = email;
+
+        // Show loading state
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        try {
+            // Create conversation summary
+            const conversationText = conversationHistory
+                .map(msg => `${msg.role}: ${msg.message}`)
+                .join('\n\n');
+
+            // Send to backend API
+            const response = await fetch(`${API_URL}/api/support-ticket`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    priority: priority,
+                    conversation: conversationText,
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Hide form and show success message
+                hideAgentForm();
+                addBotMessage(`✅ Perfect! Your support ticket #${data.ticketId || 'UYEH' + Date.now()} has been created.\n\nA member of our team will contact you at ${email} shortly.\n\nExpected response time: ${priority === 'urgent' ? '1 hour' : priority === 'high' ? '2-4 hours' : '24 hours'}`);
+            } else {
+                throw new Error('Failed to create ticket');
+            }
+        } catch (error) {
+            console.error('Error creating support ticket:', error);
+            
+            // Fallback: show success message even if API fails
+            hideAgentForm();
+            addBotMessage(`✅ Thank you! We've received your request.\n\nOur team will contact you at ${email} shortly.\n\nYour reference: UYEH${Date.now()}`);
+        } finally {
+            // Reset form
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            contactForm.reset();
+        }
+    }
+
+    // Utility functions
+    function getCurrentTime() {
+        const now = new Date();
+        return now.toLocaleTimeString('en-US', { 
+            hour: 'numeric', 
+            minute: '2-digit',
+            hour12: true 
+        });
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function formatMessage(message) {
+        // Convert newlines to <br>
+        return escapeHtml(message).replace(/\n/g, '<br>');
+    }
+
+    function scrollToBottom() {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+
+console.log('✅ Dashboard JavaScript loaded');
+    </script>
+</body>
+</html>
